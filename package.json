@@ -15,7 +15,8 @@
     "@react-native-firebase/storage": "^6.4.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-swift": "^1.2.3"
+    "react-native-swift": "^1.2.3",
+    "react-native-track-player": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
