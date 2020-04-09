@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Linking, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 import Video from 'react-native-video';
 import moment from 'moment';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Home: FunctionComponent = () => {
   const [verse, setVerse] = useState('');
@@ -50,14 +51,14 @@ const Home: FunctionComponent = () => {
     });
     fetchVerse();
 
-    const midday = moment('00:00').format('HH:mm');
+    // const midday = moment('00:00').format('HH:mm');
 
-    PushNotification.localNotificationSchedule({
-      title: 'awal n-rbbi i-wass-ad',
-      message: moment().utc().format('DD/MM/YYYY'),
-      date: new Date(),
-      repeatType: 'minute',
-    });
+    // PushNotification.localNotificationSchedule({
+    //   title: 'awal n-rbbi i-wass-ad',
+    //   message: moment().utc().format('DD/MM/YYYY'),
+    //   date: new Date(),
+    //   repeatType: 'minute',
+    // });
   }, [fetchVerse, fetchChapter]);
 
   const onBuffer = () => {};
@@ -86,6 +87,7 @@ const Home: FunctionComponent = () => {
           onError={onError} // Callback when video cannot be loaded
         />
       )}
+      <Text onPress={() => Linking.openURL('http://www.tachelhit.info')}>kchem s-dar takat n-tgemmi-negh</Text>
     </>
   );
 };
