@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "622115831035",
+    "firebase_url": "https://word-of-god-for-each-day.firebaseio.com",
+    "project_id": "word-of-god-for-each-day",
+    "storage_bucket": "word-of-god-for-each-day.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622115831035:android:1964742bb870961def845e",
+        "android_client_info": {
+          "package_name": "com.wordofgodforeachday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622115831035-toehscidtqg2nj9rfldkbfb9kjmv4cv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq5kV9A2ij-RuI8ljJoQP63Ufb-XXkuE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622115831035-toehscidtqg2nj9rfldkbfb9kjmv4cv8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "622115831035-q4ec2a99lnocvrd7luvv7ndtgok8b1da.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wordofgodforeachday"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
