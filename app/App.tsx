@@ -1,16 +1,12 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import auth from '@react-native-firebase/auth';
 import Home from './Home';
 
 const Stack = createStackNavigator();
 
 const App: FunctionComponent = () => {
-  useEffect(() => {
-    auth().signInAnonymously();
-  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator>
