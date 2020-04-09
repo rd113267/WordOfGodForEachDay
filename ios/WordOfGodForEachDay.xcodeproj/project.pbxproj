@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* WordOfGodForEachDayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WordOfGodForEachDayTests.m */; };
 		0A74D6EF243E7A2F004A4D72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A74D6EE243E7A2F004A4D72 /* GoogleService-Info.plist */; };
-		0A74D6F9243E7C84004A4D72 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74D6F8243E7C84004A4D72 /* dummy.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -48,9 +47,9 @@
 		00E356F21AD99517003FC87E /* WordOfGodForEachDayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordOfGodForEachDayTests.m; sourceTree = "<group>"; };
 		06C92482A00A49A55903AF0B /* libPods-WordOfGodForEachDay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WordOfGodForEachDay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A070BAB243F97F500C78D79 /* libreact-native-track-player.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-track-player.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A070BB4243FD9B700C78D79 /* awal n-rbbi i-kraygatt ass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "awal n-rbbi i-kraygatt ass.entitlements"; path = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements"; sourceTree = "<group>"; };
 		0A74D6EE243E7A2F004A4D72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "WordOfGodForEachDay/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A74D6F7243E7C83004A4D72 /* WordOfGodForEachDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WordOfGodForEachDay-Bridging-Header.h"; sourceTree = "<group>"; };
-		0A74D6F8243E7C84004A4D72 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* awal n-rbbi i-kraygatt ass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "awal n-rbbi i-kraygatt ass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = WordOfGodForEachDay/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = WordOfGodForEachDay/AppDelegate.m; sourceTree = "<group>"; };
@@ -131,6 +130,7 @@
 		13B07FAE1A68108700A75B9A /* WordOfGodForEachDay */ = {
 			isa = PBXGroup;
 			children = (
+				0A070BB4243FD9B700C78D79 /* awal n-rbbi i-kraygatt ass.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -138,7 +138,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				0A74D6F8243E7C84004A4D72 /* dummy.swift */,
 				0A74D6F7243E7C83004A4D72 /* WordOfGodForEachDay-Bridging-Header.h */,
 			);
 			name = WordOfGodForEachDay;
@@ -563,7 +562,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				0A74D6F9243E7C84004A4D72 /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,7 +615,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7EB5EF7DD258A3E5103331D0 /* Pods-WordOfGodForEachDay-WordOfGodForEachDayTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -641,7 +638,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE497FFE57D6162451E8303E /* Pods-WordOfGodForEachDay-WordOfGodForEachDayTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = WordOfGodForEachDayTests/Info.plist;
@@ -664,6 +660,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -693,6 +690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = WordOfGodForEachDay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
