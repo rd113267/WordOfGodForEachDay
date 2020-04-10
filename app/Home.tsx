@@ -106,7 +106,7 @@ const Home: FunctionComponent = () => {
           {/* listen to the whole chapter */}
           <Button
             mode="contained"
-            icon="book"
+            icon="menu"
             uppercase={false}
             style={{ margin: 10 }}
             onPress={() => Linking.openURL('http://www.tachelhit.info')}

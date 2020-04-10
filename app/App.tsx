@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 const theme = {
   ...DefaultTheme,
-  roundness: 2,
   colors: {
     ...DefaultTheme.colors,
     primary: 'rgb(46,56,143)',
