@@ -32,6 +32,24 @@ const Home: FunctionComponent = () => {
   }, [date]);
 
   useEffect(() => {
+    const setup = async () => {
+      try {
+        const storageKey = 'scheduledNotification';
+        const notification = await AsyncStorage.getItem(storageKey);
+        if (!notification) {
+          const dateString = new Date().toString();
+          await AsyncStorage.setItem(storageKey, dateString);
+          PushNotification.localNotificationSchedule({
+            title: 'awal n-rbbi i-wass-ad',
+            message: moment().utc().format('DD/MM/YYYY'),
+            date: new Date(Date.now() + 30 * 1000),
+            repeatType: 'minute',
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
     auth().signInAnonymously();
     PushNotification.configure({
       onRegister: (token) => {
@@ -54,15 +72,8 @@ const Home: FunctionComponent = () => {
       requestPermissions: true,
     });
     fetchVerse();
-
+    setup();
     // const midday = moment('00:00').format('HH:mm');
-
-    // PushNotification.localNotificationSchedule({
-    //   title: 'awal n-rbbi i-wass-ad',
-    //   message: moment().utc().format('DD/MM/YYYY'),
-    //   date: new Date(),
-    //   repeatType: 'minute',
-    // });
   }, [fetchVerse, fetchChapter]);
 
   const onBuffer = () => {};
