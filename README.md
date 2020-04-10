@@ -1,7 +1,8 @@
 # Word Of God For Each Day
+
 awal n-rbbi i-kraygatt ass (the word of God for each day)
 
-a-tsflidt i-yan-wawal imimn gh-warratn n-sidi rbbi kraygatt ass (Hear each day a sweet word from the writings of the Lord God) 
+a-tsflidt i-yan-wawal imimn gh-warratn n-sidi rbbi kraygatt ass (Hear each day a sweet word from the writings of the Lord God)
 
 awal n-rbbi i-wass-ad (the daily notification sent to the user)
 
