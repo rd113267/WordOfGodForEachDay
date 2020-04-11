@@ -1,0 +1,28 @@
+name: Deploy android to Google Play
+on:
+  push:
+    branches:
+      - master
+jobs:
+  install-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          yarn
+      - name: Build android aab
+        run: |
+          echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+          cd android
+          ./gradlew bundleRelease
+      - name: upload bundle to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT_JSON}}
+          packageName: com.wordofgodforeachday
+          releaseFile: android/app/build/outputs/bundle/release/app.aab
+          track: alpha
+          #userFraction: 0.33
+          whatsNewDirectory: whatsnew
+          #mappingFile: /app/build/outputs/mapping/release/mapping.txt
