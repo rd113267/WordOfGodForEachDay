@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import { Linking, View, SafeAreaView } from 'react-native';
+import { Linking, View, SafeAreaView, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import crashlytics from '@react-native-firebase/crashlytics';
@@ -11,13 +11,14 @@ import strings from './strings';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home: FunctionComponent = () => {
   const [verseUrl, setVerseUrl] = useState('');
   const [chapterUrl, setChapterUrl] = useState('');
   const [versePaused, setVersePaused] = useState(true);
   const [chapterPaused, setChapterPaused] = useState(true);
+  const [verseLoading, setVerseLoading] = useState(false);
+  const [chapterLoading, setChapterLoading] = useState(false);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
   const date = moment().date();
@@ -94,10 +95,25 @@ const Home: FunctionComponent = () => {
     // const midday = moment('00:00').format('HH:mm');
   }, [fetchVerse, fetchChapter]);
 
-  const onBuffer = () => {};
+  const onVerseBuffer = () => {
+    setVerseLoading(true);
+  };
+
+  const onVerseResume = () => {
+    setVerseLoading(false);
+  };
+
+  const onChapterBuffer = () => {
+    setVerseLoading(true);
+  };
+
+  const onChapterResume = () => {
+    setVerseLoading(false);
+  };
 
   const onError = (e: LoadError) => {
     crashlytics().recordError(new Error(e.error.errorString));
+    Alert.alert('Error', e.error.errorString);
   };
 
   return (
@@ -108,7 +124,8 @@ const Home: FunctionComponent = () => {
           audioOnly
           source={{ uri: verseUrl }} // Can be a URL or a local file.
           ref={verseRef} // Store reference
-          onBuffer={onBuffer} // Callback when remote video is buffering
+          onBuffer={onVerseBuffer} // Callback when remote video is buffering
+          onPlaybackResume={onVerseResume}
           onError={onError} // Callback when video cannot be loaded
           onEnd={() => {
             verseRef.current.seek(0);
@@ -116,6 +133,7 @@ const Home: FunctionComponent = () => {
           onSeek={() => setVersePaused(true)}
           playInBackground
           playWhenInactive
+          ignoreSilentSwitch="ignore"
         />
       )}
       {!!chapterUrl && (
@@ -124,10 +142,12 @@ const Home: FunctionComponent = () => {
           audioOnly
           source={{ uri: chapterUrl }} // Can be a URL or a local file.
           ref={chapterRef} // Store reference
-          onBuffer={onBuffer} // Callback when remote video is buffering
+          onBuffer={onChapterBuffer} // Callback when remote video is buffering
+          onPlaybackResume={onChapterResume}
           onError={onError} // Callback when video cannot be loaded
           playInBackground
           playWhenInactive
+          ignoreSilentSwitch="ignore"
         />
       )}
       <SafeAreaView style={{ flex: 1 }}>
@@ -139,6 +159,9 @@ const Home: FunctionComponent = () => {
         <TouchableOpacity onPress={() => setVersePaused(!versePaused)}>
           <Icon name={versePaused ? 'play' : 'pause'} size={30} />
         </TouchableOpacity>
+        {/* {((verseLoading && !versePaused) || (chapterLoading && !chapterPaused)) && (
+          <ActivityIndicator color="rgb(235,50,35)" />
+        )} */}
         <View style={{ flex: 1, alignItems: 'center' }}>
           {/* listen again to this verse */}
           <Button
