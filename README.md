@@ -14,6 +14,13 @@ sfeld i-warratn yadni n-sidi rbbi (listen to all the Bible)
 
 kchem s-dar takat n-tgemmi-negh  (enter our website: www.tachelhit.info)
 
+# Setup
+
+```bash
+yarn
+yarn start
+```
+
 ## Getting react-native-track-player to work
 
 https://github.com/react-native-kit/react-native-track-player/issues/867#issuecomment-603807017
