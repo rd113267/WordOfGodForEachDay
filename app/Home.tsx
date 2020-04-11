@@ -11,6 +11,7 @@ import strings from './strings';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SplashScreen from 'react-native-splash-screen';
 
 const Home: FunctionComponent = () => {
   const [verseUrl, setVerseUrl] = useState('');
@@ -92,6 +93,7 @@ const Home: FunctionComponent = () => {
     fetchVerse();
     fetchChapter();
     setup();
+    SplashScreen.hide();
     // const midday = moment('00:00').format('HH:mm');
   }, [fetchVerse, fetchChapter]);
 
@@ -127,9 +129,7 @@ const Home: FunctionComponent = () => {
           onBuffer={onVerseBuffer} // Callback when remote video is buffering
           onPlaybackResume={onVerseResume}
           onError={onError} // Callback when video cannot be loaded
-          onEnd={() => {
-            verseRef.current.seek(0);
-          }}
+          onEnd={() => verseRef.current.seek(0)}
           onSeek={() => setVersePaused(true)}
           playInBackground
           playWhenInactive
@@ -145,6 +145,8 @@ const Home: FunctionComponent = () => {
           onBuffer={onChapterBuffer} // Callback when remote video is buffering
           onPlaybackResume={onChapterResume}
           onError={onError} // Callback when video cannot be loaded
+          onEnd={() => chapterRef.current.seek(0)}
+          onSeek={() => setChapterPaused(true)}
           playInBackground
           playWhenInactive
           ignoreSilentSwitch="ignore"
@@ -162,48 +164,50 @@ const Home: FunctionComponent = () => {
         {/* {((verseLoading && !versePaused) || (chapterLoading && !chapterPaused)) && (
           <ActivityIndicator color="rgb(235,50,35)" />
         )} */}
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          {/* listen again to this verse */}
-          <Button
-            mode="contained"
-            icon="repeat"
-            uppercase={false}
-            style={{ margin: 10 }}
-            onPress={() => Linking.openURL('http://www.tachelhit.info')}
-          >
-            sfeld dagh i-tguri-ad
-          </Button>
-          {/* listen to the whole chapter */}
-          <Button
-            mode="contained"
-            icon="menu"
-            uppercase={false}
-            style={{ margin: 10 }}
-            onPress={() => setChapterPaused(false)}
-          >
-            sfeld i-ugzzum-ad kullut
-          </Button>
-          {/* listen to all the Bible */}
-          <Button
-            mode="contained"
-            icon="book"
-            uppercase={false}
-            style={{ margin: 10 }}
-            onPress={() => Linking.openURL('http://www.tachelhit.info')}
-          >
-            sfeld i-warratn yadni n-sidi rbbi
-          </Button>
-          {/* enter our website: www.tachelhit.info */}
-          <Button
-            mode="contained"
-            icon="web"
-            uppercase={false}
-            style={{ margin: 10 }}
-            onPress={() => Linking.openURL('http://www.tachelhit.info')}
-          >
-            kchem s-dar takat n-tgemmi-negh
-          </Button>
-        </View>
+        {versePaused && chapterPaused && (
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            {/* listen again to this verse */}
+            <Button
+              mode="contained"
+              icon="repeat"
+              uppercase={false}
+              style={{ margin: 10 }}
+              onPress={() => setVersePaused(false)}
+            >
+              sfeld dagh i-tguri-ad
+            </Button>
+            {/* listen to the whole chapter */}
+            <Button
+              mode="contained"
+              icon="menu"
+              uppercase={false}
+              style={{ margin: 10 }}
+              onPress={() => setChapterPaused(false)}
+            >
+              sfeld i-ugzzum-ad kullut
+            </Button>
+            {/* listen to all the Bible */}
+            <Button
+              mode="contained"
+              icon="book"
+              uppercase={false}
+              style={{ margin: 10 }}
+              onPress={() => Alert.alert('Coming soon')}
+            >
+              sfeld i-warratn yadni n-sidi rbbi
+            </Button>
+            {/* enter our website: www.tachelhit.info */}
+            <Button
+              mode="contained"
+              icon="web"
+              uppercase={false}
+              style={{ margin: 10 }}
+              onPress={() => Linking.openURL('http://www.tachelhit.info')}
+            >
+              kchem s-dar takat n-tgemmi-negh
+            </Button>
+          </View>
+        )}
       </SafeAreaView>
     </>
   );

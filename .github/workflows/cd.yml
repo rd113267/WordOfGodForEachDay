@@ -8,12 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
       - name: Install npm dependencies
         run: |
-          yarn install
+          yarn
       - name: Build android apk
         run: |
           cd android
@@ -24,3 +21,4 @@ jobs:
           appId: ${{secrets.FIREBASE_ANDROID_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           file: android/app/build/outputs/apk/release/app-release.apk
+          groups: internal
