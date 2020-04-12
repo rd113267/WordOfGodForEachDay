@@ -21,7 +21,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT_JSON}}
           packageName: com.wordofgodforeachday
-          releaseFile: android/app/build/outputs/bundle/release/app.aab
+          releaseFile: android/app/build/outputs/bundle/release/app-release.aab
           track: alpha
           #userFraction: 0.33
           whatsNewDirectory: whatsnew
