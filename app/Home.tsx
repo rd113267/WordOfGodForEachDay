@@ -9,9 +9,10 @@ import Video, { LoadError } from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button, Text } from 'react-native-paper';
+import { Button, Text, Modal } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SplashScreen from 'react-native-splash-screen';
+import styles from './styles';
 
 const Home: FunctionComponent = () => {
   const [verseUrl, setVerseUrl] = useState('');
@@ -20,6 +21,8 @@ const Home: FunctionComponent = () => {
   const [chapterPaused, setChapterPaused] = useState(true);
   const [verseLoading, setVerseLoading] = useState(false);
   const [chapterLoading, setChapterLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
+  const [showButtons, setShowButtons] = useState(false);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
   const date = moment().date();
@@ -52,12 +55,12 @@ const Home: FunctionComponent = () => {
         if (!notification) {
           const dateString = new Date().toString();
           await AsyncStorage.setItem(storageKey, dateString);
+          const notifDate = new Date();
+          notifDate.setHours(12, 0, 0, 0);
           PushNotification.localNotificationSchedule({
-            //title: 'awal n-rbbi i-wass-ad',
             message: 'awal n-rbbi i-wass-ad',
-            //message: moment().utc().format('DD/MM/YYYY') + ' ' + moment().unix().toString(),
-            date: new Date(Date.now() + 30 * 1000),
-            repeatType: 'minute',
+            date: notifDate,
+            repeatType: 'day',
           });
         }
       } catch (e) {
@@ -153,14 +156,12 @@ const Home: FunctionComponent = () => {
         />
       )}
       <SafeAreaView style={{ flex: 1 }}>
-        <Text style={{ margin: 10 }}>
-          ass f-wass rad-ak-ntazn iwaliwn mimnin gh-warratn n-sidi rbbi. sfeld-asn, tfraht srsn, tamnt gisn, ar-ttdust
-          s-tayri-ns izgan ula s-rrja ishan
-        </Text>
-        <Text style={{ margin: 10 }}>{verse}</Text>
-        <TouchableOpacity onPress={() => setVersePaused(!versePaused)}>
-          <Icon name={versePaused ? 'play' : 'pause'} size={30} />
-        </TouchableOpacity>
+        <View style={{ margin: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ margin: 10, fontSize: 30, textAlign: 'center' }}>{verse}</Text>
+          <TouchableOpacity onPress={() => setVersePaused(!versePaused)} >
+            <Icon name={versePaused ? 'play' : 'pause'} size={30} />
+          </TouchableOpacity>
+        </View>
         {/* {((verseLoading && !versePaused) || (chapterLoading && !chapterPaused)) && (
           <ActivityIndicator color="rgb(235,50,35)" />
         )} */}
@@ -172,7 +173,10 @@ const Home: FunctionComponent = () => {
               icon="repeat"
               uppercase={false}
               style={{ margin: 10 }}
-              onPress={() => setVersePaused(false)}
+              onPress={() => {
+                verseRef.current.seek(0);
+                setVersePaused(false);
+              }}
             >
               sfeld dagh i-tguri-ad
             </Button>
@@ -208,6 +212,29 @@ const Home: FunctionComponent = () => {
             </Button>
           </View>
         )}
+        <Modal
+          contentContainerStyle={styles.modal}
+          visible={modalVisible}
+          onDismiss={() => {
+            setModalVisible(false);
+            setVersePaused(false);
+          }}
+        >
+          <Text style={{ fontSize: 25, lineHeight: 40, marginBottom: 20 }}>
+            {/* a-tsflidt i-yan-wawal imimn gh-warratn n-sidi rbbi kraygatt ass */}
+            ass f-wass rad-ak-ntazn iwaliwn mimnin gh-warratn n-sidi rbbi. sfeld-asn, tfraht srsn, tamnt gisn, ar-ttdust
+            s-tayri-ns izgan ula s-rrja ishan.
+          </Text>
+          <Button
+            mode="contained"
+            onPress={() => {
+              setModalVisible(false);
+              setVersePaused(false);
+            }}
+          >
+            <Icon name="keyboard-return" size={30} />
+          </Button>
+        </Modal>
       </SafeAreaView>
     </>
   );
