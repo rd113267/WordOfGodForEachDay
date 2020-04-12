@@ -176,7 +176,7 @@ const Home: FunctionComponent = () => {
         {/* {((verseLoading && !versePaused) || (chapterLoading && !chapterPaused)) && (
           <ActivityIndicator color="rgb(235,50,35)" />
         )} */}
-        {versePaused && chapterPaused && (
+        {versePaused && chapterPaused && !modalVisible && (
           <View style={{ flex: 1, alignItems: 'center' }}>
             {/* listen again to this verse */}
             <Button
@@ -228,6 +228,8 @@ const Home: FunctionComponent = () => {
             </Button>
           </View>
         )}
+        
+      </SafeAreaView>
         <Modal
           contentContainerStyle={styles.modal}
           visible={modalVisible}
@@ -251,7 +253,6 @@ const Home: FunctionComponent = () => {
             <Icon name="keyboard-return" size={30} />
           </Button>
         </Modal>
-      </SafeAreaView>
     </>
   );
 };
