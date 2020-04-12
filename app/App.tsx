@@ -21,7 +21,7 @@ const App: FunctionComponent = () => {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="awal n-rbbi i-kraygatt ass" component={Home} />
+          <Stack.Screen name="awal n-rbbi i-kraygatt ass" component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
