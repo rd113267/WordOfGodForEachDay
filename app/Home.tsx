@@ -105,24 +105,24 @@ const Home: FunctionComponent = () => {
     setVerseLoading(isBuffering);
   };
 
-  const onChapterBuffer = ({ isBuffering }) => {
-    setVerseLoading(isBuffering);
-  };
-
   const onVerseLoadStart = () => {
-    setVerseLoading(false);
+    setVerseLoading(true);
   };
 
   const onVerseLoad = () => {
-    setVerseLoading(true);
-  };
-
-  const onChapterLoadStart = () => {
     setVerseLoading(false);
   };
 
+  const onChapterBuffer = ({ isBuffering }) => {
+    setChapterLoading(isBuffering);
+  };
+
+  const onChapterLoadStart = () => {
+    setChapterLoading(true);
+  };
+
   const onChapterLoad = () => {
-    setVerseLoading(true);
+    setChapterLoading(false);
   };
 
   const onError = (e: LoadError) => {
@@ -136,7 +136,7 @@ const Home: FunctionComponent = () => {
         <Video
           paused={versePaused}
           audioOnly
-          source={{ uri: verseUrl }} // Can be a URL or a local file.
+          source={{ uri: verseUrl, cache: true }} // Can be a URL or a local file.
           ref={verseRef} // Store reference
           onBuffer={onVerseBuffer} // Callback when remote video is buffering
           onLoad={onVerseLoad}
@@ -157,7 +157,7 @@ const Home: FunctionComponent = () => {
         <Video
           paused={chapterPaused}
           audioOnly
-          source={{ uri: chapterUrl }} // Can be a URL or a local file.
+          source={{ uri: chapterUrl, cache: true }} // Can be a URL or a local file.
           ref={chapterRef} // Store reference
           onBuffer={onChapterBuffer} // Callback when remote video is buffering
           onLoad={onChapterLoad}

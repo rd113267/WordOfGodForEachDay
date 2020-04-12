@@ -12,7 +12,8 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: 'rgb(46,56,143)',
-    accent: 'rgb(235,50,35)',
+    accent: 'rgb(46,56,143)'
+    //accent: 'rgb(235,50,35)',
   },
 };
 
