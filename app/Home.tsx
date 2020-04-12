@@ -136,7 +136,7 @@ const Home: FunctionComponent = () => {
         <Video
           paused={versePaused}
           audioOnly
-          source={{ uri: verseUrl, cache: true }} // Can be a URL or a local file.
+          source={{ uri: verseUrl }} // Can be a URL or a local file.
           ref={verseRef} // Store reference
           onBuffer={onVerseBuffer} // Callback when remote video is buffering
           onLoad={onVerseLoad}
@@ -157,7 +157,7 @@ const Home: FunctionComponent = () => {
         <Video
           paused={chapterPaused}
           audioOnly
-          source={{ uri: chapterUrl, cache: true }} // Can be a URL or a local file.
+          source={{ uri: chapterUrl }} // Can be a URL or a local file.
           ref={chapterRef} // Store reference
           onBuffer={onChapterBuffer} // Callback when remote video is buffering
           onLoad={onChapterLoad}
@@ -177,7 +177,12 @@ const Home: FunctionComponent = () => {
       <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./cross.jpg')}>
         <SafeAreaView style={{ flex: 1 }}>
           <Card style={{ margin: 20 }}>
-            <Card.Title title="awal n-rbbi i-kraygatt ass" subtitle={verse} subtitleStyle={{ fontSize: 20 }} titleStyle={{ fontSize: 20}}/>
+            <Card.Title
+              title="awal n-rbbi i-kraygatt ass"
+              subtitle={verse}
+              subtitleStyle={{ fontSize: 20 }}
+              titleStyle={{ fontSize: 20 }}
+            />
           </Card>
 
           <FAB
