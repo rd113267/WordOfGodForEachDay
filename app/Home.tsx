@@ -23,6 +23,7 @@ const Home: FunctionComponent = () => {
   const [chapterLoading, setChapterLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
   const [showButtons, setShowButtons] = useState(false);
+  const [playingChapter, setPlayingChapter] = useState(false);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
   const date = moment().date();
@@ -56,7 +57,7 @@ const Home: FunctionComponent = () => {
           const dateString = new Date().toString();
           await AsyncStorage.setItem(storageKey, dateString);
           const notifDate = new Date();
-          notifDate.setHours(12, 0, 0, 0);
+          notifDate.setHours(13, 0, 0, 0);
           PushNotification.localNotificationSchedule({
             message: 'awal n-rbbi i-wass-ad',
             date: notifDate,
@@ -132,8 +133,12 @@ const Home: FunctionComponent = () => {
           onBuffer={onVerseBuffer} // Callback when remote video is buffering
           onPlaybackResume={onVerseResume}
           onError={onError} // Callback when video cannot be loaded
-          onEnd={() => verseRef.current.seek(0)}
-          onSeek={() => setVersePaused(true)}
+          onEnd={() => {
+            verseRef.current.seek(0);
+            setTimeout(() => {
+              setVersePaused(true);
+            }, 100);
+          }}
           playInBackground
           playWhenInactive
           ignoreSilentSwitch="ignore"
@@ -148,8 +153,12 @@ const Home: FunctionComponent = () => {
           onBuffer={onChapterBuffer} // Callback when remote video is buffering
           onPlaybackResume={onChapterResume}
           onError={onError} // Callback when video cannot be loaded
-          onEnd={() => chapterRef.current.seek(0)}
-          onSeek={() => setChapterPaused(true)}
+          onEnd={() => {
+            chapterRef.current.seek(0);
+            setTimeout(() => {
+              setVersePaused(true);
+            }, 100);
+          }}
           playInBackground
           playWhenInactive
           ignoreSilentSwitch="ignore"
@@ -158,8 +167,10 @@ const Home: FunctionComponent = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ margin: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ margin: 10, fontSize: 30, textAlign: 'center' }}>{verse}</Text>
-          <TouchableOpacity onPress={() => setVersePaused(!versePaused)} >
-            <Icon name={versePaused ? 'play' : 'pause'} size={30} />
+          <TouchableOpacity
+            onPress={() => (playingChapter ? setChapterPaused(!chapterPaused) : setVersePaused(!versePaused))}
+          >
+            <Icon name={versePaused && chapterPaused ? 'play' : 'pause'} size={50} />
           </TouchableOpacity>
         </View>
         {/* {((verseLoading && !versePaused) || (chapterLoading && !chapterPaused)) && (
@@ -176,6 +187,7 @@ const Home: FunctionComponent = () => {
               onPress={() => {
                 verseRef.current.seek(0);
                 setVersePaused(false);
+                setPlayingChapter(false);
               }}
             >
               sfeld dagh i-tguri-ad
@@ -186,7 +198,11 @@ const Home: FunctionComponent = () => {
               icon="menu"
               uppercase={false}
               style={{ margin: 10 }}
-              onPress={() => setChapterPaused(false)}
+              onPress={() => {
+                chapterRef.current.seek(0);
+                setChapterPaused(false);
+                setPlayingChapter(true);
+              }}
             >
               sfeld i-ugzzum-ad kullut
             </Button>
