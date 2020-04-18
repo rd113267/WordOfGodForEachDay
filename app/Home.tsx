@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import { Linking, View, SafeAreaView, Alert, ImageBackground } from 'react-native';
+import { Linking, SafeAreaView, Alert, ImageBackground } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import crashlytics from '@react-native-firebase/crashlytics';
@@ -21,7 +21,7 @@ const Home: FunctionComponent = () => {
   const [chapterPaused, setChapterPaused] = useState(true);
   const [verseLoading, setVerseLoading] = useState(false);
   const [chapterLoading, setChapterLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [playingChapter, setPlayingChapter] = useState(false);
   const verseRef = useRef<Video>();
@@ -54,10 +54,12 @@ const Home: FunctionComponent = () => {
         const storageKey = 'scheduledNotification';
         const notification = await AsyncStorage.getItem(storageKey);
         if (!notification) {
+          // only show modal and schedule notification once
+          setModalVisible(true);
           const dateString = new Date().toString();
           await AsyncStorage.setItem(storageKey, dateString);
           const notifDate = new Date();
-          notifDate.setHours(13, 0, 0, 0);
+          notifDate.setHours(17, 0, 0, 0);
           PushNotification.localNotificationSchedule({
             message: 'awal n-rbbi i-wass-ad',
             date: notifDate,
@@ -179,7 +181,7 @@ const Home: FunctionComponent = () => {
           <Card style={{ margin: 20 }}>
             <Card.Title
               title="awal n-rbbi i-kraygatt ass"
-              subtitle={verse}
+              subtitle={`${moment().format('DD/MM/YYYY')} ${verse}`}
               subtitleStyle={{ fontSize: 20 }}
               titleStyle={{ fontSize: 20 }}
             />
