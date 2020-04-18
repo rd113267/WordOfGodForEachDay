@@ -129,6 +129,8 @@ const Home: FunctionComponent = () => {
     Alert.alert('Error', e.error.errorString);
   };
 
+  const buttonsVisible = versePaused && chapterPaused && !modalVisible && !!verseUrl && !!chapterUrl;
+
   return (
     <>
       {!!verseUrl && (
@@ -219,11 +221,7 @@ const Home: FunctionComponent = () => {
           <Icon name="keyboard-return" size={30} />
         </Button>
       </Modal>
-      <Modal
-        visible={versePaused && chapterPaused && !modalVisible}
-        contentContainerStyle={styles.buttonModal}
-        dismissable={false}
-      >
+      <Modal visible={buttonsVisible} contentContainerStyle={styles.buttonModal} dismissable={false}>
         {/* listen again to this verse */}
         <Button
           mode="contained"
