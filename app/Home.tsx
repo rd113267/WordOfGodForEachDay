@@ -130,7 +130,7 @@ const Home: FunctionComponent = () => {
   };
 
   const buttonsVisible = versePaused && chapterPaused && !modalVisible && !!verseUrl && !!chapterUrl;
-
+  const loading = verseLoading || chapterLoading || !verseUrl || !chapterUrl;
   return (
     <>
       {!!verseUrl && (
@@ -193,7 +193,7 @@ const Home: FunctionComponent = () => {
           <FAB
             style={styles.fab}
             icon={versePaused && chapterPaused ? 'play' : 'pause'}
-            loading={verseLoading || chapterLoading}
+            loading={loading}
             onPress={() => (playingChapter ? setChapterPaused(!chapterPaused) : setVersePaused(!versePaused))}
           />
         </SafeAreaView>
