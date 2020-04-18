@@ -48,34 +48,33 @@ const Home: FunctionComponent = () => {
     }
   }, [date]);
 
-  useEffect(() => {
-    const setup = async () => {
-      try {
-        const storageKey = 'scheduledNotification';
-        const notification = await AsyncStorage.getItem(storageKey);
-        if (!notification) {
-          // only show modal and schedule notification once
-          setModalVisible(true);
-          const dateString = new Date().toString();
-          await AsyncStorage.setItem(storageKey, dateString);
-          const notifDate = new Date();
-          notifDate.setHours(17, 0, 0, 0);
-          PushNotification.localNotificationSchedule({
-            message: 'awal n-rbbi i-wass-ad',
-            date: notifDate,
-            repeatType: 'day',
-          });
-        }
-      } catch (e) {
-        console.log(e);
-        crashlytics().recordError(e);
-      }
-    };
+  const setup = useCallback(async () => {
     try {
-      auth().signInAnonymously();
+      await auth().signInAnonymously();
+      fetchVerse();
+      fetchChapter();
+      const storageKey = 'scheduledNotification';
+      const notification = await AsyncStorage.getItem(storageKey);
+      if (!notification) {
+        // only show modal and schedule notification once
+        setModalVisible(true);
+        const dateString = new Date().toString();
+        await AsyncStorage.setItem(storageKey, dateString);
+        const notifDate = new Date();
+        notifDate.setHours(17, 0, 0, 0);
+        PushNotification.localNotificationSchedule({
+          message: 'awal n-rbbi i-wass-ad',
+          date: notifDate,
+          repeatType: 'day',
+        });
+      }
     } catch (e) {
+      console.log(e);
       crashlytics().recordError(e);
     }
+  }, [fetchChapter, fetchVerse]);
+
+  useEffect(() => {
     PushNotification.configure({
       onRegister: (token) => {
         console.log('TOKEN:', token);
@@ -96,12 +95,10 @@ const Home: FunctionComponent = () => {
       popInitialNotification: true,
       requestPermissions: true,
     });
-    fetchVerse();
-    fetchChapter();
     setup();
     SplashScreen.hide();
     // const midday = moment('00:00').format('HH:mm');
-  }, [fetchVerse, fetchChapter]);
+  }, [setup, fetchChapter, fetchVerse]);
 
   const onVerseBuffer = ({ isBuffering }) => {
     setVerseLoading(isBuffering);
@@ -145,10 +142,12 @@ const Home: FunctionComponent = () => {
           onLoadStart={onVerseLoadStart}
           onError={onError} // Callback when video cannot be loaded
           onEnd={() => {
-            verseRef.current.seek(0);
-            setTimeout(() => {
-              setVersePaused(true);
-            }, 100);
+            if (verseRef.current) {
+              verseRef.current.seek(0);
+              setTimeout(() => {
+                setVersePaused(true);
+              }, 100);
+            }
           }}
           playInBackground
           playWhenInactive
@@ -166,10 +165,12 @@ const Home: FunctionComponent = () => {
           onLoadStart={onChapterLoadStart}
           onError={onError} // Callback when video cannot be loaded
           onEnd={() => {
-            chapterRef.current.seek(0);
-            setTimeout(() => {
-              setVersePaused(true);
-            }, 100);
+            if (chapterRef.current) {
+              chapterRef.current.seek(0);
+              setTimeout(() => {
+                setVersePaused(true);
+              }, 100);
+            }
           }}
           playInBackground
           playWhenInactive
@@ -230,9 +231,11 @@ const Home: FunctionComponent = () => {
           uppercase={false}
           style={{ margin: 10 }}
           onPress={() => {
-            verseRef.current.seek(0);
-            setVersePaused(false);
-            setPlayingChapter(false);
+            if (verseRef.current) {
+              verseRef.current.seek(0);
+              setVersePaused(false);
+              setPlayingChapter(false);
+            }
           }}
         >
           sfeld dagh i-tguri-ad
@@ -244,9 +247,11 @@ const Home: FunctionComponent = () => {
           uppercase={false}
           style={{ margin: 10 }}
           onPress={() => {
-            chapterRef.current.seek(0);
-            setChapterPaused(false);
-            setPlayingChapter(true);
+            if (chapterRef.current) {
+              chapterRef.current.seek(0);
+              setChapterPaused(false);
+              setPlayingChapter(true);
+            }
           }}
         >
           sfeld i-ugzzum-ad kullut
