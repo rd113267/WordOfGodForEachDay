@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import { Linking, SafeAreaView, Alert, ImageBackground } from 'react-native';
+import { Linking, SafeAreaView, Alert, ImageBackground, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import crashlytics from '@react-native-firebase/crashlytics';
@@ -179,7 +179,8 @@ const Home: FunctionComponent = () => {
           ignoreSilentSwitch="ignore"
         />
       )}
-      <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./cross.jpg')}>
+      <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.jpg')}>
+        <View style={styles.overlay} />
         <SafeAreaView style={{ flex: 1 }}>
           <Card style={{ margin: 20 }}>
             <Card.Title
@@ -189,7 +190,64 @@ const Home: FunctionComponent = () => {
               titleStyle={{ fontSize: 20 }}
             />
           </Card>
-
+          {buttonsVisible && (
+            <View style={styles.buttonModal}>
+              <View style={styles.buttonContainer}>
+                {/* listen again to this verse */}
+                <Button
+                  mode="contained"
+                  icon="repeat"
+                  uppercase={false}
+                  style={{ margin: 10 }}
+                  onPress={() => {
+                    if (verseRef.current) {
+                      verseRef.current.seek(0);
+                      setVersePaused(false);
+                      setPlayingChapter(false);
+                    }
+                  }}
+                >
+                  sfeld dagh i-tguri-ad
+                </Button>
+                {/* listen to the whole chapter */}
+                <Button
+                  mode="contained"
+                  icon="menu"
+                  uppercase={false}
+                  style={{ margin: 10 }}
+                  onPress={() => {
+                    if (chapterRef.current) {
+                      chapterRef.current.seek(0);
+                      setChapterPaused(false);
+                      setPlayingChapter(true);
+                    }
+                  }}
+                >
+                  sfeld i-ugzzum-ad kullut
+                </Button>
+                {/* listen to all the Bible */}
+                <Button
+                  mode="contained"
+                  icon="book"
+                  uppercase={false}
+                  style={{ margin: 10 }}
+                  onPress={() => Alert.alert('Coming soon')}
+                >
+                  sfeld i-warratn yadni n-sidi rbbi
+                </Button>
+                {/* enter our website: www.tachelhit.info */}
+                <Button
+                  mode="contained"
+                  icon="web"
+                  uppercase={false}
+                  style={{ margin: 10 }}
+                  onPress={() => Linking.openURL('http://www.tachelhit.info')}
+                >
+                  kchem s-dar takat n-tgemmi-negh
+                </Button>
+              </View>
+            </View>
+          )}
           <FAB
             style={styles.fab}
             icon={versePaused && chapterPaused ? 'play' : 'pause'}
@@ -219,60 +277,6 @@ const Home: FunctionComponent = () => {
           }}
         >
           <Icon name="keyboard-return" size={30} />
-        </Button>
-      </Modal>
-      <Modal visible={buttonsVisible} contentContainerStyle={styles.buttonModal} dismissable={false}>
-        {/* listen again to this verse */}
-        <Button
-          mode="contained"
-          icon="repeat"
-          uppercase={false}
-          style={{ margin: 10 }}
-          onPress={() => {
-            if (verseRef.current) {
-              verseRef.current.seek(0);
-              setVersePaused(false);
-              setPlayingChapter(false);
-            }
-          }}
-        >
-          sfeld dagh i-tguri-ad
-        </Button>
-        {/* listen to the whole chapter */}
-        <Button
-          mode="contained"
-          icon="menu"
-          uppercase={false}
-          style={{ margin: 10 }}
-          onPress={() => {
-            if (chapterRef.current) {
-              chapterRef.current.seek(0);
-              setChapterPaused(false);
-              setPlayingChapter(true);
-            }
-          }}
-        >
-          sfeld i-ugzzum-ad kullut
-        </Button>
-        {/* listen to all the Bible */}
-        <Button
-          mode="contained"
-          icon="book"
-          uppercase={false}
-          style={{ margin: 10 }}
-          onPress={() => Alert.alert('Coming soon')}
-        >
-          sfeld i-warratn yadni n-sidi rbbi
-        </Button>
-        {/* enter our website: www.tachelhit.info */}
-        <Button
-          mode="contained"
-          icon="web"
-          uppercase={false}
-          style={{ margin: 10 }}
-          onPress={() => Linking.openURL('http://www.tachelhit.info')}
-        >
-          kchem s-dar takat n-tgemmi-negh
         </Button>
       </Modal>
     </>
