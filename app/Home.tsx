@@ -183,13 +183,13 @@ const Home: FunctionComponent = () => {
         <View style={styles.overlay} />
         <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.detailsContainer}>
-            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 50, height: 50, margin: 10 }} />
+            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 60, height: 60, margin: 10 }} />
             <View>
               <Text style={{ marginBottom: 10, fontSize: 20, textAlign: 'center' }}>awal i-wass</Text>
               <Text style={{ marginBottom: 10, fontSize: 20, color: '#989898', textAlign: 'center'}}>{verse}</Text>
               <Text style={{ fontSize: 16, color: '#989898', textAlign: 'center' }}>{moment().format('DD/MM/YYYY')}</Text>
             </View>
-            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 50, height: 50, margin: 10 }} />
+            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 60, height: 60, margin: 10 }} />
           </View>
           {buttonsVisible && (
             <View style={styles.buttonModal}>
