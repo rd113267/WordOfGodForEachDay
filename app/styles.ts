@@ -42,5 +42,14 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.4)',
-  }
+  },
+  detailsContainer: {
+    margin: 25,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
 });

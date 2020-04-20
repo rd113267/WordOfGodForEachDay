@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import { Linking, SafeAreaView, Alert, ImageBackground, View } from 'react-native';
+import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import crashlytics from '@react-native-firebase/crashlytics';
@@ -9,7 +9,7 @@ import Video, { LoadError } from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button, Text, Modal, Card, FAB } from 'react-native-paper';
+import { Button, Text, Modal, FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
@@ -182,14 +182,15 @@ const Home: FunctionComponent = () => {
       <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.jpg')}>
         <View style={styles.overlay} />
         <SafeAreaView style={{ flex: 1 }}>
-          <Card style={{ margin: 20 }}>
-            <Card.Title
-              title="awal n-rbbi i-kraygatt ass"
-              subtitle={`${moment().format('DD/MM/YYYY')} ${verse}`}
-              subtitleStyle={{ fontSize: 20 }}
-              titleStyle={{ fontSize: 20 }}
-            />
-          </Card>
+          <View style={styles.detailsContainer}>
+            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 50, height: 50, margin: 10 }} />
+            <View>
+              <Text style={{ marginBottom: 10, fontSize: 20, textAlign: 'center' }}>awal i-wass</Text>
+              <Text style={{ marginBottom: 10, fontSize: 20, color: '#989898', textAlign: 'center'}}>{verse}</Text>
+              <Text style={{ fontSize: 16, color: '#989898', textAlign: 'center' }}>{moment().format('DD/MM/YYYY')}</Text>
+            </View>
+            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 50, height: 50, margin: 10 }} />
+          </View>
           {buttonsVisible && (
             <View style={styles.buttonModal}>
               <View style={styles.buttonContainer}>
@@ -243,7 +244,7 @@ const Home: FunctionComponent = () => {
                   style={{ margin: 10 }}
                   onPress={() => Linking.openURL('http://www.tachelhit.info')}
                 >
-                  kchem s-dar takat n-tgemmi-negh
+                  kchem dar takat n-tgemmi-negh
                 </Button>
               </View>
             </View>

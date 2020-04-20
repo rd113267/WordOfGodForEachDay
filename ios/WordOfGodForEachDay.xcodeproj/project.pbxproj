@@ -55,7 +55,7 @@
 		0A74D6F7243E7C83004A4D72 /* WordOfGodForEachDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WordOfGodForEachDay-Bridging-Header.h"; sourceTree = "<group>"; };
 		0AEA27A4244211A900E13E79 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AEA27A62442120F00E13E79 /* icon_rounded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_rounded.png; path = "../../../OneDrive/projects/word of god for today/icon_rounded.png"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* awal n-rbbi i-kraygatt ass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "awal n-rbbi i-kraygatt ass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* awal i-wass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "awal i-wass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = WordOfGodForEachDay/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = WordOfGodForEachDay/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = WordOfGodForEachDay/Images.xcassets; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* awal n-rbbi i-kraygatt ass.app */,
+				13B07F961A680F5B00A75B9A /* awal i-wass.app */,
 				00E356EE1AD99517003FC87E /* WordOfGodForEachDayTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* WordOfGodForEachDay-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* WordOfGodForEachDay-tvOSTests.xctest */,
@@ -266,7 +266,7 @@
 			);
 			name = WordOfGodForEachDay;
 			productName = WordOfGodForEachDay;
-			productReference = 13B07F961A680F5B00A75B9A /* awal n-rbbi i-kraygatt ass.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* awal i-wass.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* WordOfGodForEachDay-tvOS */ = {
@@ -799,7 +799,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wordofgodforeachday;
-				PRODUCT_NAME = "awal n-rbbi i-kraygatt ass";
+				PRODUCT_NAME = "awal i-wass";
 				SWIFT_OBJC_BRIDGING_HEADER = "WordOfGodForEachDay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -825,7 +825,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wordofgodforeachday;
-				PRODUCT_NAME = "awal n-rbbi i-kraygatt ass";
+				PRODUCT_NAME = "awal i-wass";
 				SWIFT_OBJC_BRIDGING_HEADER = "WordOfGodForEachDay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
