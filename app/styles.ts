@@ -46,7 +46,6 @@ export default StyleSheet.create({
   detailsContainer: {
     margin: 25,
     alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: '#fff',
     borderRadius: 4,
     flexDirection: 'row',
