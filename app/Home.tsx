@@ -187,9 +187,7 @@ const Home: FunctionComponent = () => {
             <View>
               <Text style={{ marginBottom: 10, fontSize: 20 }}>awal i-wass</Text>
               <Text style={{ marginBottom: 10, fontSize: 20, color: '#989898' }}>{verse}</Text>
-              <Text style={{ fontSize: 16, color: '#989898' }}>
-                {moment().format('DD/MM/YYYY')}
-              </Text>
+              <Text style={{ fontSize: 16, color: '#989898' }}>{moment().format('DD/MM/YYYY')}</Text>
             </View>
           </View>
           {buttonsVisible && (
