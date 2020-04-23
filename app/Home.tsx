@@ -60,11 +60,12 @@ const Home: FunctionComponent = () => {
         setModalVisible(true);
         const dateString = new Date().toString();
         await AsyncStorage.setItem(storageKey, dateString);
-        const notifDate = new Date();
-        notifDate.setHours(17, 0, 0, 0);
+        const now = moment();
+        const notifTime = moment().set({ hour: 17, minutes: 0, second: 0, millisecond: 0 });
+        const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
         PushNotification.localNotificationSchedule({
           message: 'awal n-rbbi i-wass-ad',
-          date: notifDate,
+          date: notifDate.toDate(),
           repeatType: 'day',
         });
       }
