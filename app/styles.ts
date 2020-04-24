@@ -7,8 +7,14 @@ export default StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     justifyContent: 'flex-start',
-    padding: 30,
+    padding: 20,
     borderRadius: 4,
+  },
+  modalText: {
+    fontSize: 20,
+    lineHeight: 35,
+    marginBottom: 20,
+    textAlign: 'center',
   },
   buttonModal: {
     position: 'absolute',
@@ -55,7 +61,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     padding: 5,
     borderRadius: 10,
   }

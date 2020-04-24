@@ -82,6 +82,7 @@ const Home: FunctionComponent = () => {
         console.log('TOKEN:', token);
       },
       onNotification: async (notification) => {
+        await auth().signInAnonymously();
         await fetchVerse();
         await fetchChapter();
         setVersePaused(false);
@@ -181,8 +182,8 @@ const Home: FunctionComponent = () => {
           ignoreSilentSwitch="ignore"
         />
       )}
-      <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.jpg')}>
-        <View style={styles.overlay} />
+      <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.png')}>
+        {/* <View style={styles.overlay} /> */}
         <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.detailsContainer}>
             <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 60, height: 60, margin: 10 }} />
@@ -258,7 +259,7 @@ const Home: FunctionComponent = () => {
           />
           <View style={styles.versionDetail}>
             <Text
-              style={{ color: 'rgb(46,56,143)', fontSize: 12 }}
+              style={{ color: '#fff', fontSize: 12 }}
             >{`${VersionNumber.appVersion} (${VersionNumber.buildVersion})`}</Text>
           </View>
         </SafeAreaView>
@@ -271,10 +272,8 @@ const Home: FunctionComponent = () => {
           setVersePaused(false);
         }}
       >
-        <Text style={{ fontSize: 25, lineHeight: 40, marginBottom: 20 }}>
-          {/* a-tsflidt i-yan-wawal imimn gh-warratn n-sidi rbbi kraygatt ass */}
-          ass f-wass rad-ak-ntazn iwaliwn mimnin gh-warratn n-sidi rbbi. sfeld-asn, tfraht srsn, tamnt gisn, ar-ttdust
-          s-tayri-ns izgan ula s-rrja ishan.
+        <Text style={styles.modalText}>
+          ass f-wass rad-ak-ntazn awal imimn gh-warratn n-sidi rbbi. sfeld-as ar-ttdust s-rrja ishan.
         </Text>
         <Button
           mode="contained"
