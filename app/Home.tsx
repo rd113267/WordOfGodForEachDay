@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
 import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import storage from '@react-native-firebase/storage';
 import crashlytics from '@react-native-firebase/crashlytics';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
@@ -16,44 +14,23 @@ import styles from './styles';
 import VersionNumber from 'react-native-version-number';
 
 const Home: FunctionComponent = () => {
-  const [verseUrl, setVerseUrl] = useState('');
-  const [chapterUrl, setChapterUrl] = useState('');
   const [versePaused, setVersePaused] = useState(true);
   const [chapterPaused, setChapterPaused] = useState(true);
   const [verseLoading, setVerseLoading] = useState(false);
   const [chapterLoading, setChapterLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [showButtons, setShowButtons] = useState(false);
   const [playingChapter, setPlayingChapter] = useState(false);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
   const date = moment().date();
   const month = moment().month() + 1;
   const verse = strings[1][date];
-
-  const fetchVerse = useCallback(async () => {
-    try {
-      const url = await storage().ref(`/verses/1/${date}.mp3`).getDownloadURL();
-      setVerseUrl(url);
-    } catch (e) {
-      crashlytics().recordError(e);
-    }
-  }, [date]);
-
-  const fetchChapter = useCallback(async () => {
-    try {
-      const url = await storage().ref(`/chapters/1/${date}.mp3`).getDownloadURL();
-      setChapterUrl(url);
-    } catch (e) {
-      crashlytics().recordError(e);
-    }
-  }, [date]);
+  const rootURL = 'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/github-storage/files/';
+  const verseUrl = `${rootURL}chapters/1/${date}.mp3`;
+  const chapterUrl = `${rootURL}chapters/1/${date}.mp3`;
 
   const setup = useCallback(async () => {
     try {
-      await auth().signInAnonymously();
-      fetchVerse();
-      fetchChapter();
       const storageKey = 'scheduledNotification';
       const notification = await AsyncStorage.getItem(storageKey);
       if (!notification) {
@@ -74,7 +51,7 @@ const Home: FunctionComponent = () => {
       console.log(e);
       crashlytics().recordError(e);
     }
-  }, [fetchChapter, fetchVerse]);
+  }, []);
 
   useEffect(() => {
     PushNotification.configure({
@@ -82,9 +59,6 @@ const Home: FunctionComponent = () => {
         console.log('TOKEN:', token);
       },
       onNotification: async (notification) => {
-        await auth().signInAnonymously();
-        await fetchVerse();
-        await fetchChapter();
         setVersePaused(false);
         console.log('NOTIFICATION:', notification);
         notification.finish(PushNotificationIOS.FetchResult.NoData);
@@ -101,7 +75,7 @@ const Home: FunctionComponent = () => {
     setup();
     SplashScreen.hide();
     // const midday = moment('00:00').format('HH:mm');
-  }, [setup, fetchChapter, fetchVerse]);
+  }, [setup]);
 
   const onVerseBuffer = ({ isBuffering }) => {
     setVerseLoading(isBuffering);
