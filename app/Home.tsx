@@ -13,6 +13,7 @@ import { Button, Text, Modal, FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
+import VersionNumber from 'react-native-version-number';
 
 const Home: FunctionComponent = () => {
   const [verseUrl, setVerseUrl] = useState('');
@@ -255,6 +256,11 @@ const Home: FunctionComponent = () => {
             loading={loading}
             onPress={() => (playingChapter ? setChapterPaused(!chapterPaused) : setVersePaused(!versePaused))}
           />
+          <View style={styles.versionDetail}>
+            <Text
+              style={{ color: 'rgb(46,56,143)', fontSize: 12 }}
+            >{`${VersionNumber.appVersion} (${VersionNumber.buildVersion})`}</Text>
+          </View>
         </SafeAreaView>
       </ImageBackground>
       <Modal

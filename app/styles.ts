@@ -51,4 +51,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 10,
   },
+  versionDetail: {
+    position: 'absolute',
+    bottom: 15,
+    alignSelf: 'center',
+    backgroundColor: '#fff',
+    padding: 5,
+    borderRadius: 10,
+  }
 });
