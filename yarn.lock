@@ -1110,10 +1110,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.0.0.tgz#ae9a430f2c5795debca491f15a989fce86ea75a0"
   integrity sha512-GLhSN8dRt4lpixPQh+8prSCy6PYk/MT/mvji/ojAd5yshowDo6HFsimCSTD/uWAdjpUq91XK9tVdTNWfGRlKQA==
 
-"@react-native-community/masked-view@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.9.tgz#383aca2fb053e3e14405c99cce2d5805df730821"
-  integrity sha512-nUtzbiLeXU0K9oVed6rc/WVrjGJwDSL4q1RTDkpZYU4j0FeovfuzcNUIDesD2r728LYfIop+uAgQdm+6qBOCug==
+"@react-native-community/masked-view@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
+  integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
 "@react-native-community/push-notification-ios@^1.0.1", "@react-native-community/push-notification-ios@^1.1.1":
   version "1.1.1"
@@ -1122,24 +1122,24 @@
   dependencies:
     invariant "^2.2.4"
 
-"@react-native-firebase/app-types@6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.4.0.tgz#f3d8c1d63f5bc5f6d5f9683caa428b189a968839"
-  integrity sha512-c8rYdh4DJReKjTl/jUjPNrCwhbAlNcgCch3n3rCOuATjYleiSt3zhskn37aRQeCOKohvNzuxvYy5ZYtzAxMYmw==
+"@react-native-firebase/app-types@6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.1.tgz#93497885e6c112203db310636616647c16478da9"
+  integrity sha512-jfP2wdBUaptGXO6BC0g3RYMgmGLGOkdWhkGxPhZZy1uxIxN4IXPfeUKEPL0as6ZJqfdx0IMvSvtcp7ywoFNxyg==
 
-"@react-native-firebase/app@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-6.4.0.tgz#cc3f22ebed03397fc85e855634f4db3729d242d9"
-  integrity sha512-QCV+SY0hdx3OTR+KQngvF/ejuPkEP8V5pr0ie8hic/yV6vcGtrMEN/NGSvgILjbPYRhspYDZSi4HdTgc70WUIA==
+"@react-native-firebase/app@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-6.7.1.tgz#0fe8bb9a82292d672da524763dc42e224dda4fde"
+  integrity sha512-MzRlcR+5+RCU3Za+QMV064oPpZhkXvLoZbB8CdYxI66Qd2XKAGUT0FoQlFaeXZxkrfisdhLbvRUYJo1TY/Iuxg==
   dependencies:
-    "@react-native-firebase/app-types" "6.4.0"
+    "@react-native-firebase/app-types" "6.7.1"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-6.4.0.tgz#76618ab91282ded00abffc3cebbd6d92abc79155"
-  integrity sha512-dn2lM4782JRyUN+WEPNEZkMfGCyfR7vmxv4AGMZC6RMtEOMgaTSRq5YXdCWk/7bLVl9SVUdWyBZJ/PFePbr8wg==
+"@react-native-firebase/crashlytics@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-6.7.1.tgz#211f4a9a8738f3cc16cf4252f0dd90f96802f9c5"
+  integrity sha512-gqIiHldl9U4TEUiDkgTye6IT6PjFVuq533NeQc1OZ0xZVsJQzzdK01Ecp8CzrtTUhJWtKLH7TRLCMf8RPBUe6A==
   dependencies:
     stacktrace-js "^2.0.0"
 
@@ -1169,10 +1169,10 @@
   dependencies:
     nanoid "^3.0.2"
 
-"@react-navigation/stack@^5.2.11":
-  version "5.2.11"
-  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.11.tgz#3e8d5e64a7a46c9fdb672eed74c973c3073e8ca5"
-  integrity sha512-Gt+T9FlXB8yQGS/0Mg987Wzr/XbPwSROujn0lTzw328wVpHKoilLStdMf5u5pxMMsNQ6HBtzITksM3FyxY9/0A==
+"@react-navigation/stack@^5.2.13":
+  version "5.2.13"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.13.tgz#fa242f28beb8882fde1584cd23b1a9938abc5e17"
+  integrity sha512-bHT9cN5DKNpBHgftIzAM+MoBwWnz2952G5SSctXExQkQ73dwbkV1RnQw8t0MnRZyOpsynhJIdAG+me2QERhAbg==
   dependencies:
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
@@ -2332,11 +2332,6 @@ dayjs@^1.8.15:
   version "1.8.23"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
   integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
-
-debounce@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"
-  integrity sha512-mYtLl1xfZLi1m4RtQYlZgJUNQjl4ZxVnHzIR8nLLgi4q1YT8o/WM+MK/f8yfcc9s5Ir5zRaPZyZU6xs1Syoocg==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -5688,12 +5683,10 @@ react-native-safe-area-view@^0.14.6:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-react-native-screens@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.5.0.tgz#2c5b5a56d3b8be64d459d53da154bde926021a50"
-  integrity sha512-5Ak/J41eZzvU2zvik8YH825ppFdKR4cootbAq9ETwdQoN0fu4GBdOpX7paKW2jFCTsh3OOoyRRW2xYvLczZqVw==
-  dependencies:
-    debounce "^1.2.0"
+react-native-screens@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.7.0.tgz#2d3cf3c39a665e9ca1c774264fccdb90e7944047"
+  integrity sha512-n/23IBOkrTKCfuUd6tFeRkn3lB2QZ3cmvoubRscR0JU/Zl4/ZyKmwnFmUv1/Fr+2GH/H8UTX59kEKDYYg3dMgA==
 
 react-native-splash-screen@^3.2.0:
   version "3.2.0"
