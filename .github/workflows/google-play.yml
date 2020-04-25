@@ -15,10 +15,10 @@ jobs:
         run: |
           echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
           cd android
-          echo "MYAPP_RELEASE_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}" >> gradle.properties
-          echo "MYAPP_RELEASE_STORE_FILE=${{ secrets.MYAPP_UPLOAD_STORE_FILE }}" >> gradle.properties
-          echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}" >> gradle.properties
-          echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_FILE=${{ secrets.MYAPP_UPLOAD_STORE_FILE }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}" >> gradle.properties
           ./gradlew bundleRelease
       - name: upload bundle to Google Play
         uses: r0adkll/upload-google-play@v1
