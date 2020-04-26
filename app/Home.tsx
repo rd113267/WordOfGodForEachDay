@@ -24,10 +24,10 @@ const Home: FunctionComponent = () => {
   const chapterRef = useRef<Video>();
   const date = moment().date();
   const month = moment().month() + 1;
-  const verse = strings[1][date];
+  const verse = strings[month][date];
   const rootURL = 'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/master/files/';
-  const verseUrl = `${rootURL}verses/1/${date}.mp3`;
-  const chapterUrl = `${rootURL}chapters/1/${date}.mp3`;
+  const verseUrl = `${rootURL}verses/${month}/${date}.mp3`;
+  const chapterUrl = `${rootURL}chapters/${month}/${date}.mp3`;
 
   const setup = useCallback(async () => {
     try {
