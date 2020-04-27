@@ -222,6 +222,22 @@ const Home: FunctionComponent = () => {
                 >
                   kchem dar takat n-tgemmi-negh
                 </Button>
+                <Button
+                  mode="contained"
+                  icon="whatsapp"
+                  uppercase={false}
+                  style={{ margin: 10 }}
+                  onPress={async () => {
+                    try {
+                      await Linking.openURL('whatsapp://send?phone=+212661249065');
+                    } catch (e) {
+                      crashlytics().recordError(e);
+                      Alert.alert('Error', e.message);
+                    }
+                  }}
+                >
+                  sawl-agh-d s-watsapp
+                </Button>
               </View>
             </View>
           )}
