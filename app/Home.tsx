@@ -6,28 +6,37 @@ import PushNotification from 'react-native-push-notification';
 import Video, { LoadError } from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
+import bookInfo from './bibleRef';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text, Modal, FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
 import VersionNumber from 'react-native-version-number';
+import { getRandomInt } from './helpers';
 
 const Home: FunctionComponent = () => {
   const [versePaused, setVersePaused] = useState(true);
   const [chapterPaused, setChapterPaused] = useState(true);
+  const [biblePaused, setBiblePaused] = useState(true);
   const [verseLoading, setVerseLoading] = useState(false);
   const [chapterLoading, setChapterLoading] = useState(false);
+  const [bibleLoading, setBibleLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [playingChapter, setPlayingChapter] = useState(false);
+  const [playingBible, setPlayingBible] = useState(false);
+  const [chapter, setChapter] = useState(1);
+  const [book, setBook] = useState(1);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
+  const bibleRef = useRef<Video>();
   const date = moment().date();
   const month = moment().month() + 1;
   const verse = strings[month][date];
   const rootURL = 'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/master/files/';
   const verseUrl = `${rootURL}verses/${month}/${date}.mp3`;
   const chapterUrl = `${rootURL}chapters/${month}/${date}.mp3`;
+  const bibleUrl = `${rootURL}bible/${book}/${chapter}.mp3`;
 
   const setup = useCallback(async () => {
     try {
@@ -45,6 +54,10 @@ const Home: FunctionComponent = () => {
           message: 'awal n-rbbi i-wass-ad',
           date: notifDate.toDate(),
           repeatType: 'day',
+          priority: 'max',
+          importance: 'max',
+          // @ts-ignore
+          allowWhileIdle: true,
         });
       }
     } catch (e) {
@@ -60,6 +73,10 @@ const Home: FunctionComponent = () => {
       },
       onNotification: async (notification) => {
         setVersePaused(false);
+        setChapterPaused(true);
+        setBiblePaused(true);
+        setPlayingChapter(false);
+        setPlayingBible(false);
         console.log('NOTIFICATION:', notification);
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
@@ -74,10 +91,19 @@ const Home: FunctionComponent = () => {
     });
     setup();
     SplashScreen.hide();
-    // const midday = moment('00:00').format('HH:mm');
   }, [setup]);
 
-  const onVerseBuffer = ({ isBuffering }) => {
+  const onFABPress = useCallback(() => {
+    if (playingChapter) {
+      setChapterPaused(!chapterPaused);
+    } else if (playingBible) {
+      setBiblePaused(!biblePaused);
+    } else {
+      setVersePaused(!versePaused);
+    }
+  }, [biblePaused, chapterPaused, versePaused, playingBible, playingChapter]);
+
+  const onVerseBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
     setVerseLoading(isBuffering);
   };
 
@@ -89,7 +115,7 @@ const Home: FunctionComponent = () => {
     setVerseLoading(false);
   };
 
-  const onChapterBuffer = ({ isBuffering }) => {
+  const onChapterBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
     setChapterLoading(isBuffering);
   };
 
@@ -101,61 +127,91 @@ const Home: FunctionComponent = () => {
     setChapterLoading(false);
   };
 
+  const onBibleBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
+    setBibleLoading(isBuffering);
+  };
+
+  const onBibleLoadStart = () => {
+    setBibleLoading(true);
+  };
+
+  const onBibleLoad = () => {
+    setBibleLoading(false);
+  };
+
   const onError = (e: LoadError) => {
     crashlytics().recordError(new Error(e.error.errorString));
     Alert.alert('Error', e.error.errorString);
   };
 
-  const buttonsVisible = versePaused && chapterPaused && !modalVisible && !!verseUrl && !!chapterUrl;
-  const loading = verseLoading || chapterLoading || !verseUrl || !chapterUrl;
+  const buttonsVisible = versePaused && chapterPaused && biblePaused && !modalVisible;
+  const loading = verseLoading || chapterLoading || bibleLoading;
   return (
     <>
-      {!!verseUrl && (
-        <Video
-          paused={versePaused}
-          audioOnly
-          source={{ uri: verseUrl }} // Can be a URL or a local file.
-          ref={verseRef} // Store reference
-          onBuffer={onVerseBuffer} // Callback when remote video is buffering
-          onLoad={onVerseLoad}
-          onLoadStart={onVerseLoadStart}
-          onError={onError} // Callback when video cannot be loaded
-          onEnd={() => {
-            if (verseRef.current) {
-              verseRef.current.seek(0);
-              setTimeout(() => {
-                setVersePaused(true);
-              }, 100);
+      <Video
+        paused={versePaused}
+        audioOnly
+        source={{ uri: verseUrl }} // Can be a URL or a local file.
+        ref={verseRef} // Store reference
+        onBuffer={onVerseBuffer} // Callback when remote video is buffering
+        onLoad={onVerseLoad}
+        onLoadStart={onVerseLoadStart}
+        onError={onError} // Callback when video cannot be loaded
+        onEnd={() => {
+          if (verseRef.current) {
+            verseRef.current.seek(0);
+            setTimeout(() => {
+              setVersePaused(true);
+            }, 100);
+          }
+        }}
+        playInBackground
+        playWhenInactive
+        ignoreSilentSwitch="ignore"
+      />
+      <Video
+        paused={chapterPaused}
+        audioOnly
+        source={{ uri: chapterUrl }} // Can be a URL or a local file.
+        ref={chapterRef} // Store reference
+        onBuffer={onChapterBuffer} // Callback when remote video is buffering
+        onLoad={onChapterLoad}
+        onLoadStart={onChapterLoadStart}
+        onError={onError} // Callback when video cannot be loaded
+        onEnd={() => {
+          if (chapterRef.current) {
+            chapterRef.current.seek(0);
+            setTimeout(() => {
+              setChapterPaused(true);
+            }, 100);
+          }
+        }}
+        playInBackground
+        playWhenInactive
+        ignoreSilentSwitch="ignore"
+      />
+      <Video
+        paused={biblePaused}
+        audioOnly
+        source={{ uri: bibleUrl }} // Can be a URL or a local file.
+        ref={bibleRef} // Store reference
+        onBuffer={onBibleBuffer} // Callback when remote video is buffering
+        onLoad={onBibleLoad}
+        onLoadStart={onBibleLoadStart}
+        onError={onError} // Callback when video cannot be loaded
+        onEnd={() => {
+          if (bibleRef.current) {
+            if (chapter === bookInfo[book].length) {
+              setChapter(1);
+            } else {
+              setChapter(chapter + 1);
             }
-          }}
-          playInBackground
-          playWhenInactive
-          ignoreSilentSwitch="ignore"
-        />
-      )}
-      {!!chapterUrl && (
-        <Video
-          paused={chapterPaused}
-          audioOnly
-          source={{ uri: chapterUrl }} // Can be a URL or a local file.
-          ref={chapterRef} // Store reference
-          onBuffer={onChapterBuffer} // Callback when remote video is buffering
-          onLoad={onChapterLoad}
-          onLoadStart={onChapterLoadStart}
-          onError={onError} // Callback when video cannot be loaded
-          onEnd={() => {
-            if (chapterRef.current) {
-              chapterRef.current.seek(0);
-              setTimeout(() => {
-                setVersePaused(true);
-              }, 100);
-            }
-          }}
-          playInBackground
-          playWhenInactive
-          ignoreSilentSwitch="ignore"
-        />
-      )}
+          }
+        }}
+        playInBackground
+        playWhenInactive
+        ignoreSilentSwitch="ignore"
+      />
       <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.png')}>
         {/* <View style={styles.overlay} /> */}
         <SafeAreaView style={{ flex: 1 }}>
@@ -181,6 +237,7 @@ const Home: FunctionComponent = () => {
                       verseRef.current.seek(0);
                       setVersePaused(false);
                       setPlayingChapter(false);
+                      setPlayingBible(false);
                     }
                   }}
                 >
@@ -197,6 +254,7 @@ const Home: FunctionComponent = () => {
                       chapterRef.current.seek(0);
                       setChapterPaused(false);
                       setPlayingChapter(true);
+                      setPlayingBible(false);
                     }
                   }}
                 >
@@ -208,7 +266,17 @@ const Home: FunctionComponent = () => {
                   icon="book"
                   uppercase={false}
                   style={{ margin: 10 }}
-                  onPress={() => Alert.alert('Coming soon')}
+                  onPress={() => {
+                    if (bibleRef.current) {
+                      // const newbook = getRandomInt(1, 66);
+                      const newBook = 1;
+                      const newChapter = getRandomInt(1, bookInfo[newBook].length);
+                      setChapter(newChapter);
+                      setPlayingBible(true);
+                      setPlayingChapter(false);
+                      setBiblePaused(false);
+                    }
+                  }}
                 >
                   sfeld i-warratn yadni n-sidi rbbi
                 </Button>
@@ -243,9 +311,9 @@ const Home: FunctionComponent = () => {
           )}
           <FAB
             style={styles.fab}
-            icon={versePaused && chapterPaused ? 'play' : 'pause'}
+            icon={versePaused && chapterPaused && biblePaused ? 'play' : 'pause'}
             loading={loading}
-            onPress={() => (playingChapter ? setChapterPaused(!chapterPaused) : setVersePaused(!versePaused))}
+            onPress={onFABPress}
           />
           <View style={styles.versionDetail}>
             <Text

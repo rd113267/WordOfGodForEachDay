@@ -1,4 +1,4 @@
-export default {
+const strings: { [key: number]: { [key: number]: string } } = {
   1: {
     1: 'imrwasn 3:1',
     2: 'imurign 119:105',
@@ -227,3 +227,5 @@ export default {
     31: 'filibbi 4:13',
   },
 };
+
+export default strings;
