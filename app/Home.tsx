@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
+import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
 import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
@@ -37,6 +38,14 @@ const Home: FunctionComponent = () => {
   const verseUrl = `${rootURL}verses/${month}/${date}.mp3`;
   const chapterUrl = `${rootURL}chapters/${month}/${date}.mp3`;
   const bibleUrl = `${rootURL}bible/${book}/${chapter}.mp3`;
+
+  const config = {
+    title: 'Huawei Protected Apps',
+    text: "This app requires to be enabled in 'Protected Apps' in order to receive push notifcations",
+    doNotShowAgainText: 'Do not show again',
+    positiveText: 'PROTECTED APPS',
+    negativeText: 'CANCEL',
+  };
 
   const setup = useCallback(async () => {
     try {
@@ -91,6 +100,7 @@ const Home: FunctionComponent = () => {
     });
     setup();
     SplashScreen.hide();
+    HuaweiProtectedApps.AlertIfHuaweiDevice(config);
   }, [setup]);
 
   const onFABPress = useCallback(() => {
