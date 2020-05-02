@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "postinstall": "npx jetify",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -23,7 +24,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
-    "react-native-huawei-protected-apps": "^0.1.7",
+    "react-native-huawei-protected-apps": "https://github.com/pgengoux/react-native-huawei-protected-apps.git",
     "react-native-modalbox": "^2.0.0",
     "react-native-paper": "^3.8.0",
     "react-native-push-notification": "3.2.1",

@@ -5659,10 +5659,9 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-huawei-protected-apps@^0.1.7:
+"react-native-huawei-protected-apps@https://github.com/pgengoux/react-native-huawei-protected-apps.git":
   version "0.1.7"
-  resolved "https://registry.yarnpkg.com/react-native-huawei-protected-apps/-/react-native-huawei-protected-apps-0.1.7.tgz#09fad71f95790f814f7836b4c0cb28778576d1c3"
-  integrity sha1-CfrXH5V5D4FPeDa0wMsod4V20cM=
+  resolved "https://github.com/pgengoux/react-native-huawei-protected-apps.git#ac4cea32673f98451cda610870c7c26a5ed60777"
 
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
