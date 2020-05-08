@@ -7,7 +7,7 @@ import PushNotification from 'react-native-push-notification';
 import Video, { LoadError } from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
-import bookInfo from './bibleRef';
+import bookInfo, { sequence } from './bibleRef';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text, Modal, FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -37,15 +37,7 @@ const Home: FunctionComponent = () => {
   const rootURL = 'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/master/files/';
   const verseUrl = `${rootURL}verses/${month}/${date}.mp3`;
   const chapterUrl = `${rootURL}chapters/${month}/${date}.mp3`;
-  const bibleUrl = `${rootURL}bible/${book}/${chapter}.mp3`;
-
-  const config = {
-    title: 'Huawei Protected Apps',
-    text: "This app requires to be enabled in 'Protected Apps' in order to receive push notifcations",
-    doNotShowAgainText: 'Do not show again',
-    positiveText: 'PROTECTED APPS',
-    negativeText: 'CANCEL',
-  };
+  const bibleUrl = `${rootURL}bible/${sequence[book]}/${chapter}.mp3`;
 
   const setup = useCallback(async () => {
     try {
@@ -60,7 +52,8 @@ const Home: FunctionComponent = () => {
         const notifTime = moment().set({ hour: 17, minutes: 0, second: 0, millisecond: 0 });
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
         PushNotification.localNotificationSchedule({
-          message: 'awal n-rbbi i-wass-ad',
+          title: 'awal i-wass',
+          message: 'gh-warratn n-sidi rbbi \nsfeld-as tzaamt s-rrja ishan',
           date: notifDate.toDate(),
           repeatType: 'day',
           priority: 'max',
@@ -100,6 +93,13 @@ const Home: FunctionComponent = () => {
     });
     setup();
     SplashScreen.hide();
+    const config = {
+      title: 'Huawei Protected Apps',
+      text: "This app requires to be enabled in 'Protected Apps' in order to receive push notifications",
+      doNotShowAgainText: 'Do not show again',
+      positiveText: 'PROTECTED APPS',
+      negativeText: 'CANCEL',
+    };
     HuaweiProtectedApps.AlertIfHuaweiDevice(config);
   }, [setup]);
 
@@ -213,6 +213,11 @@ const Home: FunctionComponent = () => {
           if (bibleRef.current) {
             if (chapter === bookInfo[book].length) {
               setChapter(1);
+              if (book === 65) {
+                setBook(0);
+              } else {
+                setBook(book + 1);
+              }
             } else {
               setChapter(chapter + 1);
             }
@@ -278,9 +283,10 @@ const Home: FunctionComponent = () => {
                   style={{ margin: 10 }}
                   onPress={() => {
                     if (bibleRef.current) {
-                      // const newbook = getRandomInt(1, 66);
-                      const newBook = 1;
+                      // 66 books in bible but arrays start at zero and we're using the array called sequence
+                      const newBook = getRandomInt(0, 65);
                       const newChapter = getRandomInt(1, bookInfo[newBook].length);
+                      setBook(newBook);
                       setChapter(newChapter);
                       setPlayingBible(true);
                       setPlayingChapter(false);
