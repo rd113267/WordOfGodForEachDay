@@ -387,7 +387,7 @@ const Home: FunctionComponent = () => {
         }}
       >
         <Text style={styles.modalText}>
-          ass f-wass rad-ak-ntazn awal imimn gh-warratn n-sidi rbbi. sfeld-as ar-ttdust s-rrja ishan.
+          ass f-wass rad-ak-ntazn awal imimn gh-warratn n-sidi rbbi. sfeld-as ar-ttzaamt s-rrja ishan.
         </Text>
         <Button
           mode="contained"
