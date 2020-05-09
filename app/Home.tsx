@@ -4,12 +4,12 @@ import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'reac
 import crashlytics from '@react-native-firebase/crashlytics';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
-import Video, { LoadError } from 'react-native-video';
+import Video, { LoadError, OnProgressData } from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
 import bookInfo, { sequence } from './bibleRef';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button, Text, Modal, FAB } from 'react-native-paper';
+import { Button, Text, Modal, FAB, ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
@@ -27,7 +27,8 @@ const Home: FunctionComponent = () => {
   const [playingChapter, setPlayingChapter] = useState(false);
   const [playingBible, setPlayingBible] = useState(false);
   const [chapter, setChapter] = useState(1);
-  const [book, setBook] = useState(1);
+  const [book, setBook] = useState(0);
+  const [progress, setProgress] = useState(0);
   const verseRef = useRef<Video>();
   const chapterRef = useRef<Video>();
   const bibleRef = useRef<Video>();
@@ -150,9 +151,27 @@ const Home: FunctionComponent = () => {
   };
 
   const onError = (e: LoadError) => {
+    setVersePaused(true);
+    setBiblePaused(true);
+    setChapterPaused(true);
+    console.log(e);
+    if (playingBible) {
+      crashlytics().log('bible url: ' + bibleUrl);
+      console.log('bible url', bibleUrl);
+    } else if (playingChapter) {
+      crashlytics().log('chapter url: ' + chapterUrl);
+      console.log('chapter url', chapterUrl);
+    } else {
+      crashlytics().log('verse url: ' + verseUrl);
+      console.log('verse url', verseUrl);
+    }
     crashlytics().recordError(new Error(e.error.errorString));
     Alert.alert('Error', e.error.errorString);
   };
+
+  const onProgress = useCallback(({ currentTime, playableDuration }: OnProgressData) => {
+    setProgress(currentTime / playableDuration);
+  }, []);
 
   const buttonsVisible = versePaused && chapterPaused && biblePaused && !modalVisible;
   const loading = verseLoading || chapterLoading || bibleLoading;
@@ -160,6 +179,7 @@ const Home: FunctionComponent = () => {
     <>
       <Video
         paused={versePaused}
+        onProgress={onProgress}
         audioOnly
         source={{ uri: verseUrl }} // Can be a URL or a local file.
         ref={verseRef} // Store reference
@@ -181,6 +201,7 @@ const Home: FunctionComponent = () => {
       />
       <Video
         paused={chapterPaused}
+        onProgress={onProgress}
         audioOnly
         source={{ uri: chapterUrl }} // Can be a URL or a local file.
         ref={chapterRef} // Store reference
@@ -202,6 +223,7 @@ const Home: FunctionComponent = () => {
       />
       <Video
         paused={biblePaused}
+        onProgress={onProgress}
         audioOnly
         source={{ uri: bibleUrl }} // Can be a URL or a local file.
         ref={bibleRef} // Store reference
@@ -211,15 +233,22 @@ const Home: FunctionComponent = () => {
         onError={onError} // Callback when video cannot be loaded
         onEnd={() => {
           if (bibleRef.current) {
-            if (chapter === bookInfo[book].length) {
-              setChapter(1);
-              if (book === 65) {
-                setBook(0);
+            const currentBook = sequence[book];
+            try {
+              if (chapter === bookInfo[currentBook].length) {
+                setChapter(1);
+                if (currentBook === sequence.pop()) {
+                  setBook(0);
+                } else {
+                  setBook(book + 1);
+                }
               } else {
-                setBook(book + 1);
+                setChapter(chapter + 1);
               }
-            } else {
-              setChapter(chapter + 1);
+            } catch (e) {
+              crashlytics().log('book: ' + book);
+              crashlytics().recordError(e);
+              Alert.alert('Error', e.message);
             }
           }
         }}
@@ -232,12 +261,16 @@ const Home: FunctionComponent = () => {
         <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.detailsContainer}>
             <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 60, height: 60, margin: 10 }} />
-            <View>
+            <View style={{ flex: 1 }}>
               <Text style={{ marginBottom: 10, fontSize: 20 }}>awal i-wass</Text>
               <Text style={{ marginBottom: 10, fontSize: 20, color: '#989898' }}>{verse}</Text>
               <Text style={{ fontSize: 16, color: '#989898' }}>{moment().format('DD/MM/YYYY')}</Text>
+              {__DEV__ && (
+                <ProgressBar style={{ marginRight: 20, marginTop: 10 }} progress={progress} color="rgb(46,56,143)" />
+              )}
             </View>
           </View>
+
           {buttonsVisible && (
             <View style={styles.buttonModal}>
               <View style={styles.buttonContainer}>
@@ -283,14 +316,21 @@ const Home: FunctionComponent = () => {
                   style={{ margin: 10 }}
                   onPress={() => {
                     if (bibleRef.current) {
-                      // 66 books in bible but arrays start at zero and we're using the array called sequence
                       const newBook = getRandomInt(0, 65);
-                      const newChapter = getRandomInt(1, bookInfo[newBook].length);
-                      setBook(newBook);
-                      setChapter(newChapter);
-                      setPlayingBible(true);
-                      setPlayingChapter(false);
-                      setBiblePaused(false);
+                      try {
+                        const max = bookInfo[sequence[newBook]].length;
+                        console.log('max', max);
+                        const newChapter = getRandomInt(1, max);
+                        setBook(newBook);
+                        setChapter(newChapter);
+                        setPlayingBible(true);
+                        setPlayingChapter(false);
+                        setTimeout(() => setBiblePaused(false), 250);
+                      } catch (e) {
+                        crashlytics().log('book: ' + newBook);
+                        crashlytics().recordError(e);
+                        Alert.alert('Error', e.message);
+                      }
                     }
                   }}
                 >
