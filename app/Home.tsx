@@ -53,7 +53,7 @@ const Home: FunctionComponent = () => {
         const notifTime = moment().set({ hour: 17, minutes: 0, second: 0, millisecond: 0 });
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
         PushNotification.localNotificationSchedule({
-          title: 'sfeld-as tzaamt s-rrja ishan',
+          message: 'sfeld-as tzaamt s-rrja ishan',
           date: notifDate.toDate(),
           repeatType: 'day',
           priority: 'max',
