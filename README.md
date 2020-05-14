@@ -20,13 +20,3 @@ kchem s-dar takat n-tgemmi-negh  (enter our website: www.tachelhit.info)
 yarn
 yarn start
 ```
-
-## Getting react-native-track-player to work
-
-https://github.com/react-native-kit/react-native-track-player/issues/867#issuecomment-603807017
-
-add this line to react-native-track-player.podspec in module dir
-
-```pod
-s.exclude_files = ["ios/RNTrackPlayer/Vendor/AudioPlayer/Example"]
-```
