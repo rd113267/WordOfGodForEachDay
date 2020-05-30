@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+// import 'react-native-gesture-handler';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 import Home from './Home';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
 
 const theme = {
   ...DefaultTheme,
@@ -20,11 +20,12 @@ const theme = {
 const App: FunctionComponent = () => {
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
+      <Home />
+      {/* <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="awal n-rbbi i-kraygatt ass" component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </PaperProvider>
   );
 };

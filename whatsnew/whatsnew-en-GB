@@ -1,0 +1,3 @@
+- fixed splash screen not showing on android
+- updated certain modules (including notification module)
+- removed unnecessary bloat
