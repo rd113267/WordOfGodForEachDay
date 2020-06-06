@@ -11,7 +11,6 @@ import bookInfo, { sequence } from './bibleRef';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, Text, Modal, FAB, ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
 import VersionNumber from 'react-native-version-number';
 import { getRandomInt } from './helpers';
@@ -92,7 +91,6 @@ const Home: FunctionComponent = () => {
       requestPermissions: true,
     });
     setup();
-    SplashScreen.hide();
     const config = {
       title: 'Huawei Protected Apps',
       text: "This app requires to be enabled in 'Protected Apps' in order to receive push notifications",
