@@ -16,6 +16,7 @@ import VersionNumber from 'react-native-version-number';
 import { getRandomInt } from './helpers';
 
 const Home: FunctionComponent = () => {
+  const PHONE_NUMBER = '+212642596841';
   const [versePaused, setVersePaused] = useState(true);
   const [chapterPaused, setChapterPaused] = useState(true);
   const [biblePaused, setBiblePaused] = useState(true);
@@ -341,7 +342,7 @@ const Home: FunctionComponent = () => {
                   style={{ margin: 10 }}
                   onPress={() => Linking.openURL('http://www.tachelhit.info')}
                 >
-                  kchem dar takat n-tgemmi-negh
+                  kchem s-dar takat-negh
                 </Button>
                 <Button
                   mode="contained"
@@ -350,7 +351,7 @@ const Home: FunctionComponent = () => {
                   style={{ margin: 10 }}
                   onPress={async () => {
                     try {
-                      await Linking.openURL('whatsapp://send?phone=+212661249065');
+                      await Linking.openURL(`whatsapp://send?phone=${PHONE_NUMBER}`);
                     } catch (e) {
                       crashlytics().recordError(e);
                       Alert.alert('Error', e.message);
