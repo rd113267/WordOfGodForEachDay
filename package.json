@@ -28,6 +28,7 @@
     "react-native-paper": "^3.10.1",
     "react-native-push-notification": "^3.5.2",
     "react-native-safe-area-context": "^0.7.3",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-version-number": "^0.3.6",
     "react-native-video": "^4.4.5"

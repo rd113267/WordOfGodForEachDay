@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 import VersionNumber from 'react-native-version-number';
 import { getRandomInt } from './helpers';
+import SplashScreen from 'react-native-splash-screen';
 
 const Home: FunctionComponent = () => {
   const PHONE_NUMBER = '+212642596841';
@@ -254,7 +255,12 @@ const Home: FunctionComponent = () => {
         playWhenInactive
         ignoreSilentSwitch="ignore"
       />
-      <ImageBackground style={styles.imgBackground} resizeMode="cover" source={require('./background.png')}>
+      <ImageBackground
+        style={styles.imgBackground}
+        resizeMode="cover"
+        source={require('./background.png')}
+        onLoadEnd={() => SplashScreen.hide()}
+      >
         {/* <View style={styles.overlay} /> */}
         <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.detailsContainer}>

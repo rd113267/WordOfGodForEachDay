@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* WordOfGodForEachDayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WordOfGodForEachDayTests.m */; };
+		0A632C76249930A9005E9341 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A632C75249930A9005E9341 /* background.png */; };
 		0A74D6EF243E7A2F004A4D72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A74D6EE243E7A2F004A4D72 /* GoogleService-Info.plist */; };
 		0AEA27A5244211A900E13E79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AEA27A4244211A900E13E79 /* LaunchScreen.storyboard */; };
 		0AEA27A72442120F00E13E79 /* icon_rounded.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEA27A62442120F00E13E79 /* icon_rounded.png */; };
@@ -51,6 +52,7 @@
 		0A070BB4243FD9B700C78D79 /* awal n-rbbi i-kraygatt ass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "awal n-rbbi i-kraygatt ass.entitlements"; path = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements"; sourceTree = "<group>"; };
 		0A070BBB2440A94D00C78D79 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
 		0A070BC52440A94D00C78D79 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		0A632C75249930A9005E9341 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ../app/background.png; sourceTree = "<group>"; };
 		0A74D6EE243E7A2F004A4D72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "WordOfGodForEachDay/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A74D6F7243E7C83004A4D72 /* WordOfGodForEachDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WordOfGodForEachDay-Bridging-Header.h"; sourceTree = "<group>"; };
 		0AEA27A4244211A900E13E79 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		13B07FAE1A68108700A75B9A /* WordOfGodForEachDay */ = {
 			isa = PBXGroup;
 			children = (
+				0A632C75249930A9005E9341 /* background.png */,
 				0AEA27A62442120F00E13E79 /* icon_rounded.png */,
 				0A070BB4243FD9B700C78D79 /* awal n-rbbi i-kraygatt ass.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -370,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				0A632C76249930A9005E9341 /* background.png in Resources */,
 				0AEA27A72442120F00E13E79 /* icon_rounded.png in Resources */,
 				0AEA27A5244211A900E13E79 /* LaunchScreen.storyboard in Resources */,
 				0A74D6EF243E7A2F004A4D72 /* GoogleService-Info.plist in Resources */,
@@ -786,7 +790,7 @@
 				CODE_SIGN_ENTITLEMENTS = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -796,7 +800,7 @@
 				INFOPLIST_FILE = WordOfGodForEachDay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -822,12 +826,12 @@
 				CODE_SIGN_ENTITLEMENTS = "WordOfGodForEachDay/awal n-rbbi i-kraygatt ass.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = 27RJG57PEM;
 				INFOPLIST_FILE = WordOfGodForEachDay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
