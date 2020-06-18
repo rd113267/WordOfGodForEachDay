@@ -365,7 +365,7 @@ PODS:
     - ReactCommon/callinvoker (= 0.62.2)
   - RNCAsyncStorage (1.9.0):
     - React
-  - RNCPushNotificationIOS (1.2.0):
+  - RNCPushNotificationIOS (1.2.2):
     - React
   - RNFBApp (7.1.4):
     - Firebase/CoreOnly (~> 6.25.0)
@@ -609,7 +609,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   RNCAsyncStorage: 453cd7c335ec9ba3b877e27d02238956b76f3268
-  RNCPushNotificationIOS: 4d9ffd08f00ef6c1029ebbf4d72fc711eca3ff01
+  RNCPushNotificationIOS: 4c97a36dbec42dba411cc35e6dac25e34a805fde
   RNFBApp: fa6c2bf4e67ca1db74d04eec5909189b5500c9b8
   RNFBAuth: 61b666e4a0c25750d9cc48d2c1a5320d4fa83f7b
   RNFBCrashlytics: 5674792fd43032b4d2da2843a6f1967dd0b8c9bd
