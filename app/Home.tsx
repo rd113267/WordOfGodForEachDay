@@ -51,7 +51,10 @@ const Home: FunctionComponent = () => {
         const dateString = new Date().toString();
         await AsyncStorage.setItem(storageKey, dateString);
         const now = moment();
-        const notifTime = moment().set({ hour: 17, minutes: 0, second: 0, millisecond: 0 });
+        const time = __DEV__
+          ? { hour: 19, minutes: 18, second: 0, millisecond: 0 } // use this for testing notifications
+          : { hour: 17, minutes: 0, second: 0, millisecond: 0 };
+        const notifTime = moment().set(time);
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
         PushNotification.localNotificationSchedule({
           message: 'sfeld-as tzaamt s-rrja ishan',
