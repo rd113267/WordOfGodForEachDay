@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "postinstall": "npx jetify && patch-package",
+    "postinstall": "npx jetify",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -20,20 +20,20 @@
     "@types/jest": "^25.2.1",
     "@types/node-fetch": "^2.5.7",
     "@types/react-test-renderer": "^16.9.2",
+    "add": "^2.0.6",
     "moment": "^2.24.0",
-    "patch-package": "^6.2.2",
-    "postinstall-postinstall": "^2.1.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-huawei-protected-apps": "https://github.com/pgengoux/react-native-huawei-protected-apps.git",
     "react-native-modalbox": "^2.0.0",
     "react-native-paper": "^3.10.1",
-    "react-native-push-notification": "^3.5.2",
+    "react-native-push-notification": "zo0r/react-native-push-notification#dev",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-version-number": "^0.3.6",
-    "react-native-video": "^4.4.5"
+    "react-native-video": "^4.4.5",
+    "yarn": "^1.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

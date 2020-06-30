@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
 import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
-import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'react-native';
+import { Linking, SafeAreaView, Alert, ImageBackground, View, Image, Platform } from 'react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
@@ -43,6 +43,19 @@ const Home: FunctionComponent = () => {
 
   const setup = useCallback(async () => {
     try {
+      if (Platform.OS === 'android') {
+        //@ts-ignore
+        PushNotification.getChannels((ids) => {
+          ids &&
+            //@ts-ignore
+            ids.forEach((id, index) => {
+              if (index !== 0) {
+                //@ts-ignore
+                PushNotification.deleteChannel(id);
+              }
+            });
+        });
+      }
       const storageKey = 'scheduledNotification';
       const notification = await AsyncStorage.getItem(storageKey);
       if (!notification) {
@@ -52,7 +65,7 @@ const Home: FunctionComponent = () => {
         await AsyncStorage.setItem(storageKey, dateString);
         const now = moment();
         const time = __DEV__
-          ? { hour: 19, minutes: 18, second: 0, millisecond: 0 } // use this for testing notifications
+          ? { hour: 19, minutes: 5, second: 0, millisecond: 0 } // use this for testing notifications
           : { hour: 17, minutes: 0, second: 0, millisecond: 0 };
         const notifTime = moment().set(time);
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
