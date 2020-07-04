@@ -4,7 +4,7 @@ apply plugin: 'io.fabric'
 project.ext.vectoricons = [
     iconFontNames: [ 
        'MaterialCommunityIcons.ttf',
-       'MaterialCommunityIcons.ttf'
+       'MaterialIcons.ttf'
     ] // Name of the font files you want to copy
 ]
 
@@ -141,8 +141,8 @@ android {
         applicationId "com.wordofgodforeachday"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 32
-        versionName "1.0.7"
+        versionCode 33
+        versionName "1.0.8"
         multiDexEnabled true
     }
     splits {
