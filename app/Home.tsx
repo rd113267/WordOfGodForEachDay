@@ -52,14 +52,14 @@ const Home: FunctionComponent = () => {
         await AsyncStorage.setItem(storageKey, dateString);
         const now = moment();
         const time = __DEV__
-          ? { hour: 12, minutes: 58, second: 0, millisecond: 0 } // use this for testing notifications
+          ? { hour: 17, minutes: 39, second: 0, millisecond: 0 } // use this for testing notifications
           : { hour: 17, minutes: 0, second: 0, millisecond: 0 };
         const notifTime = moment().set(time);
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
         PushNotification.localNotificationSchedule({
           message: 'sfeld-as tzaamt s-rrja ishan',
           date: notifDate.toDate(),
-          repeatType: 'day',
+          repeatType: 'minute',
         });
       }
     } catch (e) {

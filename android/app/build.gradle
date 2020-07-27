@@ -141,8 +141,8 @@ android {
         applicationId "com.wordofgodforeachday"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 33
-        versionName "1.0.8"
+        versionCode 34
+        versionName "1.0.9"
         multiDexEnabled true
     }
     splits {

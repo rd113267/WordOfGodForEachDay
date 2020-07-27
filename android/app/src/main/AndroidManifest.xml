@@ -37,6 +37,9 @@
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
                     android:value="Channel for daily verse reminder notification"/>
         <!-- Change the resource name to your App's accent color - or any other color you want -->
+        <!-- Change the value to false if you don't want the creation of the default channel -->
+        <meta-data  android:name="com.dieam.reactnativepushnotification.channel_create_default"
+                    android:value="false"/>
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
                     android:resource="@android:color/white"/>
 
