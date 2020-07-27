@@ -59,7 +59,7 @@ const Home: FunctionComponent = () => {
         PushNotification.localNotificationSchedule({
           message: 'sfeld-as tzaamt s-rrja ishan',
           date: notifDate.toDate(),
-          repeatType: 'minute',
+          repeatType: 'day',
         });
       }
     } catch (e) {
