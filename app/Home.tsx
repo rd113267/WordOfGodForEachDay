@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
 import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
-import { Linking, SafeAreaView, Alert, ImageBackground, View, Image } from 'react-native';
+import { Linking, SafeAreaView, Alert, ImageBackground, View, Image, Platform } from 'react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
@@ -52,15 +52,40 @@ const Home: FunctionComponent = () => {
         await AsyncStorage.setItem(storageKey, dateString);
         const now = moment();
         const time = __DEV__
-          ? { hour: 17, minutes: 39, second: 0, millisecond: 0 } // use this for testing notifications
+          ? { hour: 23, minutes: 5, second: 0, millisecond: 0 } // use this for testing notifications
           : { hour: 17, minutes: 0, second: 0, millisecond: 0 };
         const notifTime = moment().set(time);
         const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
-        PushNotification.localNotificationSchedule({
-          message: 'sfeld-as tzaamt s-rrja ishan',
-          date: notifDate.toDate(),
-          repeatType: 'day',
-        });
+
+        if (Platform.OS === 'ios') {
+          PushNotification.localNotificationSchedule({
+            channelId: 'daily_notification',
+            message: 'sfeld-as tzaamt s-rrja ishan',
+            date: notifDate.toDate(),
+            repeatType: 'day',
+            allowWhileIdle: true,
+          });
+        } else {
+          PushNotification.createChannel(
+            {
+              channelId: 'daily_notification',
+              channelName: 'Daily notification',
+            },
+            (created) => {
+              if (created) {
+                PushNotification.localNotificationSchedule({
+                  channelId: 'daily_notification',
+                  message: 'sfeld-as tzaamt s-rrja ishan',
+                  date: notifDate.toDate(),
+                  repeatType: 'day',
+                  allowWhileIdle: true,
+                });
+              } else {
+                Alert.alert('Error', 'Failed to created notification channel');
+              }
+            }
+          );
+        }
       }
     } catch (e) {
       console.log(e);
@@ -84,7 +109,6 @@ const Home: FunctionComponent = () => {
         console.log('NOTIFICATION:', notification);
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
-      senderID: '622115831035',
       permissions: {
         alert: true,
         badge: true,

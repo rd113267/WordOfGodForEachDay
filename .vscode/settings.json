@@ -45,4 +45,5 @@
     "eslint.lintTask.enable": true,
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
+    "files.eol": "\n",
 }
