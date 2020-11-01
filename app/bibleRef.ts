@@ -82,7 +82,7 @@ const bookInfo: { [key: number]: { length: number } } = {
   },
   //  Numbers
   4: {
-    length: 19,
+    length: 17,
   },
   // Deuteronomy
   5: {
