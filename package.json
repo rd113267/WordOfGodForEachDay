@@ -19,7 +19,7 @@
     "@types/node-fetch": "^2.5.7",
     "@types/react-test-renderer": "^16.9.2",
     "add": "^2.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-huawei-protected-apps": "https://github.com/pgengoux/react-native-huawei-protected-apps.git",
