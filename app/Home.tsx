@@ -1,19 +1,33 @@
-import React, { FunctionComponent, useEffect, useCallback, useState, useRef } from 'react';
-import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
-import { Linking, SafeAreaView, Alert, ImageBackground, View, Image, Platform } from 'react-native';
-import crashlytics from '@react-native-firebase/crashlytics';
+import React, {
+  FunctionComponent,
+  useEffect,
+  useCallback,
+  useState,
+  useRef,
+} from 'react';
+// import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
+import {
+  Linking,
+  SafeAreaView,
+  Alert,
+  ImageBackground,
+  View,
+  Image,
+  Platform,
+  PermissionsAndroid,
+} from 'react-native';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
-import Video, { LoadError, OnProgressData } from 'react-native-video';
+import Video, {LoadError, OnProgressData} from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
-import bookInfo, { sequence } from './bibleRef';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Button, Text, Modal, FAB, ProgressBar } from 'react-native-paper';
+import bookInfo, {sequence} from './bibleRef';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Button, Text, Modal, FAB, ProgressBar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 import VersionNumber from 'react-native-version-number';
-import { getRandomInt } from './helpers';
+import {getRandomInt} from './helpers';
 import SplashScreen from 'react-native-splash-screen';
 
 const Home: FunctionComponent = () => {
@@ -36,7 +50,8 @@ const Home: FunctionComponent = () => {
   const date = moment().date();
   const month = moment().month() + 1;
   const verse = strings[month][date];
-  const rootURL = 'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/master/files/';
+  const rootURL =
+    'https://raw.githubusercontent.com/moulie415/WordOfGodForEachDay/master/files/';
   const verseUrl = `${rootURL}verses/${month}/${date}.mp3`;
   const chapterUrl = `${rootURL}chapters/${month}/${date}.mp3`;
   const bibleUrl = `${rootURL}bible/${sequence[book]}/${chapter}.mp3`;
@@ -52,10 +67,12 @@ const Home: FunctionComponent = () => {
         await AsyncStorage.setItem(storageKey, dateString);
         const now = moment();
         const time = __DEV__
-          ? { hour: 23, minutes: 5, second: 0, millisecond: 0 } // use this for testing notifications
-          : { hour: 17, minutes: 0, second: 0, millisecond: 0 };
+          ? {hour: 23, minutes: 5, second: 0, millisecond: 0} // use this for testing notifications
+          : {hour: 17, minutes: 0, second: 0, millisecond: 0};
         const notifTime = moment().set(time);
-        const notifDate = now.isAfter(notifTime) ? notifTime.add(1, 'd') : notifTime;
+        const notifDate = now.isAfter(notifTime)
+          ? notifTime.add(1, 'd')
+          : notifTime;
 
         if (Platform.OS === 'ios') {
           PushNotification.localNotificationSchedule({
@@ -66,12 +83,17 @@ const Home: FunctionComponent = () => {
             allowWhileIdle: true,
           });
         } else {
+          if (Platform.Version >= 33) {
+            await PermissionsAndroid.request(
+              'android.permission.POST_NOTIFICATIONS',
+            );
+          }
           PushNotification.createChannel(
             {
               channelId: 'daily_notification',
               channelName: 'Daily notification',
             },
-            (created) => {
+            created => {
               if (created) {
                 PushNotification.localNotificationSchedule({
                   channelId: 'daily_notification',
@@ -83,22 +105,21 @@ const Home: FunctionComponent = () => {
               } else {
                 Alert.alert('Error', 'Failed to created notification channel');
               }
-            }
+            },
           );
         }
       }
     } catch (e) {
       console.log(e);
-      crashlytics().recordError(e);
     }
   }, []);
 
   useEffect(() => {
     PushNotification.configure({
-      onRegister: (token) => {
+      onRegister: token => {
         console.log('TOKEN:', token);
       },
-      onNotification: async (notification) => {
+      onNotification: async notification => {
         if (notification.userInteraction) {
           setVersePaused(false);
           setChapterPaused(true);
@@ -120,12 +141,13 @@ const Home: FunctionComponent = () => {
     setup();
     const config = {
       title: 'Huawei Protected Apps',
-      text: "This app requires to be enabled in 'Protected Apps' in order to receive push notifications",
+      text:
+        "This app requires to be enabled in 'Protected Apps' in order to receive push notifications",
       doNotShowAgainText: 'Do not show again',
       positiveText: 'PROTECTED APPS',
       negativeText: 'CANCEL',
     };
-    HuaweiProtectedApps.AlertIfHuaweiDevice(config);
+    //HuaweiProtectedApps.AlertIfHuaweiDevice(config);
   }, [setup]);
 
   const onFABPress = useCallback(() => {
@@ -138,7 +160,7 @@ const Home: FunctionComponent = () => {
     }
   }, [biblePaused, chapterPaused, versePaused, playingBible, playingChapter]);
 
-  const onVerseBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
+  const onVerseBuffer = ({isBuffering}: {isBuffering: boolean}) => {
     setVerseLoading(isBuffering);
   };
 
@@ -150,7 +172,7 @@ const Home: FunctionComponent = () => {
     setVerseLoading(false);
   };
 
-  const onChapterBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
+  const onChapterBuffer = ({isBuffering}: {isBuffering: boolean}) => {
     setChapterLoading(isBuffering);
   };
 
@@ -162,7 +184,7 @@ const Home: FunctionComponent = () => {
     setChapterLoading(false);
   };
 
-  const onBibleBuffer = ({ isBuffering }: { isBuffering: boolean }) => {
+  const onBibleBuffer = ({isBuffering}: {isBuffering: boolean}) => {
     setBibleLoading(isBuffering);
   };
 
@@ -180,24 +202,24 @@ const Home: FunctionComponent = () => {
     setChapterPaused(true);
     console.log(e);
     if (playingBible) {
-      crashlytics().log('bible url: ' + bibleUrl);
       console.log('bible url', bibleUrl);
     } else if (playingChapter) {
-      crashlytics().log('chapter url: ' + chapterUrl);
       console.log('chapter url', chapterUrl);
     } else {
-      crashlytics().log('verse url: ' + verseUrl);
       console.log('verse url', verseUrl);
     }
-    crashlytics().recordError(new Error(e.error.errorString));
     Alert.alert('Error', e.error.errorString);
   };
 
-  const onProgress = useCallback(({ currentTime, playableDuration }: OnProgressData) => {
-    setProgress(currentTime / playableDuration);
-  }, []);
+  const onProgress = useCallback(
+    ({currentTime, playableDuration}: OnProgressData) => {
+      setProgress(currentTime / playableDuration);
+    },
+    [],
+  );
 
-  const buttonsVisible = versePaused && chapterPaused && biblePaused && !modalVisible;
+  const buttonsVisible =
+    versePaused && chapterPaused && biblePaused && !modalVisible;
   const loading = verseLoading || chapterLoading || bibleLoading;
   return (
     <>
@@ -205,7 +227,7 @@ const Home: FunctionComponent = () => {
         paused={versePaused}
         onProgress={onProgress}
         audioOnly
-        source={{ uri: verseUrl }} // Can be a URL or a local file.
+        source={{uri: verseUrl}} // Can be a URL or a local file.
         ref={verseRef} // Store reference
         onBuffer={onVerseBuffer} // Callback when remote video is buffering
         onLoad={onVerseLoad}
@@ -227,7 +249,7 @@ const Home: FunctionComponent = () => {
         paused={chapterPaused}
         onProgress={onProgress}
         audioOnly
-        source={{ uri: chapterUrl }} // Can be a URL or a local file.
+        source={{uri: chapterUrl}} // Can be a URL or a local file.
         ref={chapterRef} // Store reference
         onBuffer={onChapterBuffer} // Callback when remote video is buffering
         onLoad={onChapterLoad}
@@ -249,7 +271,7 @@ const Home: FunctionComponent = () => {
         paused={biblePaused}
         onProgress={onProgress}
         audioOnly
-        source={{ uri: bibleUrl }} // Can be a URL or a local file.
+        source={{uri: bibleUrl}} // Can be a URL or a local file.
         ref={bibleRef} // Store reference
         onBuffer={onBibleBuffer} // Callback when remote video is buffering
         onLoad={onBibleLoad}
@@ -270,8 +292,6 @@ const Home: FunctionComponent = () => {
                 setChapter(chapter + 1);
               }
             } catch (e) {
-              crashlytics().log('book: ' + book);
-              crashlytics().recordError(e);
               Alert.alert('Error', e.message);
             }
           }
@@ -287,15 +307,27 @@ const Home: FunctionComponent = () => {
         onLoadEnd={() => SplashScreen.hide()}
       >
         {/* <View style={styles.overlay} /> */}
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{flex: 1}}>
           <View style={styles.detailsContainer}>
-            <Image source={require('./logo.png')} resizeMode="contain" style={{ width: 60, height: 60, margin: 10 }} />
-            <View style={{ flex: 1 }}>
-              <Text style={{ marginBottom: 10, fontSize: 20 }}>awal i-wass</Text>
-              <Text style={{ marginBottom: 10, fontSize: 20, color: '#989898' }}>{verse}</Text>
-              <Text style={{ fontSize: 16, color: '#989898' }}>{moment().format('DD/MM/YYYY')}</Text>
+            <Image
+              source={require('./logo.png')}
+              resizeMode="contain"
+              style={{width: 60, height: 60, margin: 10}}
+            />
+            <View style={{flex: 1}}>
+              <Text style={{marginBottom: 10, fontSize: 20}}>awal i-wass</Text>
+              <Text style={{marginBottom: 10, fontSize: 20, color: '#989898'}}>
+                {verse}
+              </Text>
+              <Text style={{fontSize: 16, color: '#989898'}}>
+                {moment().format('DD/MM/YYYY')}
+              </Text>
               {__DEV__ && (
-                <ProgressBar style={{ marginRight: 20, marginTop: 10 }} progress={progress} color="rgb(46,56,143)" />
+                <ProgressBar
+                  style={{marginRight: 20, marginTop: 10}}
+                  progress={progress}
+                  color="rgb(46,56,143)"
+                />
               )}
             </View>
           </View>
@@ -308,7 +340,7 @@ const Home: FunctionComponent = () => {
                   mode="contained"
                   icon="repeat"
                   uppercase={false}
-                  style={{ margin: 10 }}
+                  style={{margin: 10}}
                   onPress={() => {
                     if (verseRef.current) {
                       verseRef.current.seek(0);
@@ -325,7 +357,7 @@ const Home: FunctionComponent = () => {
                   mode="contained"
                   icon="menu"
                   uppercase={false}
-                  style={{ margin: 10 }}
+                  style={{margin: 10}}
                   onPress={() => {
                     if (chapterRef.current) {
                       chapterRef.current.seek(0);
@@ -342,7 +374,7 @@ const Home: FunctionComponent = () => {
                   mode="contained"
                   icon="book"
                   uppercase={false}
-                  style={{ margin: 10 }}
+                  style={{margin: 10}}
                   onPress={() => {
                     if (bibleRef.current) {
                       const newBook = getRandomInt(0, 65);
@@ -356,8 +388,6 @@ const Home: FunctionComponent = () => {
                         setPlayingChapter(false);
                         setTimeout(() => setBiblePaused(false), 250);
                       } catch (e) {
-                        crashlytics().log('book: ' + newBook);
-                        crashlytics().recordError(e);
                         Alert.alert('Error', e.message);
                       }
                     }
@@ -370,7 +400,7 @@ const Home: FunctionComponent = () => {
                   mode="contained"
                   icon="web"
                   uppercase={false}
-                  style={{ margin: 10 }}
+                  style={{margin: 10}}
                   onPress={() => Linking.openURL('http://www.tachelhit.info')}
                 >
                   kchem s-dar takat-negh
@@ -379,12 +409,13 @@ const Home: FunctionComponent = () => {
                   mode="contained"
                   icon="whatsapp"
                   uppercase={false}
-                  style={{ margin: 10 }}
+                  style={{margin: 10}}
                   onPress={async () => {
                     try {
-                      await Linking.openURL(`whatsapp://send?phone=${PHONE_NUMBER}`);
+                      await Linking.openURL(
+                        `whatsapp://send?phone=${PHONE_NUMBER}`,
+                      );
                     } catch (e) {
-                      crashlytics().recordError(e);
                       Alert.alert('Error', e.message);
                     }
                   }}
@@ -396,13 +427,15 @@ const Home: FunctionComponent = () => {
           )}
           <FAB
             style={styles.fab}
-            icon={versePaused && chapterPaused && biblePaused ? 'play' : 'pause'}
+            icon={
+              versePaused && chapterPaused && biblePaused ? 'play' : 'pause'
+            }
             loading={loading}
             onPress={onFABPress}
           />
           <View style={styles.versionDetail}>
             <Text
-              style={{ color: '#fff', fontSize: 12 }}
+              style={{color: '#fff', fontSize: 12}}
             >{`${VersionNumber.appVersion} (${VersionNumber.buildVersion})`}</Text>
           </View>
         </SafeAreaView>
@@ -416,7 +449,8 @@ const Home: FunctionComponent = () => {
         }}
       >
         <Text style={styles.modalText}>
-          ass f-wass rad-ak-ntazn awal imimn gh-warratn n-sidi rbbi. sfeld-as ar-ttzaamt s-rrja ishan.
+          ass f-wass rad-ak-ntazn awal imimn gh-warratn n-sidi rbbi. sfeld-as
+          ar-ttzaamt s-rrja ishan.
         </Text>
         <Button
           mode="contained"

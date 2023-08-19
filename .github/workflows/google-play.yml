@@ -13,7 +13,6 @@ jobs:
           yarn
       - name: Build android aab
         run: |
-          echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
           cd android
           echo "MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}" >> gradle.properties
           echo "MYAPP_UPLOAD_STORE_FILE=${{ secrets.MYAPP_UPLOAD_STORE_FILE }}" >> gradle.properties
@@ -21,12 +20,13 @@ jobs:
           echo "MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}" >> gradle.properties
           ./gradlew bundleRelease
       - name: upload bundle to Google Play
-        uses: r0adkll/upload-google-play@v1
+        uses: r0adkll/upload-google-play@v1.0.19
         with:
           serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT_JSON}}
           packageName: com.wordofgodforeachday
-          releaseFile: android/app/build/outputs/bundle/release/app-release.aab
+          releaseFiles: android/app/build/outputs/bundle/release/*.aab
           track: production
           #userFraction: 0.33
           whatsNewDirectory: whatsnew
           #mappingFile: /app/build/outputs/mapping/release/mapping.txt
+          status: completed
