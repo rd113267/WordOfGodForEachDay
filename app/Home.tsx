@@ -8,7 +8,6 @@ import React, {
 // import HuaweiProtectedApps from 'react-native-huawei-protected-apps';
 import {
   Linking,
-  SafeAreaView,
   Alert,
   ImageBackground,
   View,
@@ -18,17 +17,18 @@ import {
 } from 'react-native';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
-import Video, {LoadError, OnProgressData} from 'react-native-video';
+import Video, {OnVideoErrorData, OnProgressData, VideoRef} from 'react-native-video';
 import moment from 'moment';
 import strings from './strings';
 import bookInfo, {sequence} from './bibleRef';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Button, Text, Modal, FAB, ProgressBar} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from '@react-native-vector-icons/material-icons';
 import styles from './styles';
 import VersionNumber from 'react-native-version-number';
 import {getRandomInt} from './helpers';
 import SplashScreen from 'react-native-splash-screen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home: FunctionComponent = () => {
   const PHONE_NUMBER = '+212642596841';
@@ -44,9 +44,9 @@ const Home: FunctionComponent = () => {
   const [chapter, setChapter] = useState(1);
   const [book, setBook] = useState(0);
   const [progress, setProgress] = useState(0);
-  const verseRef = useRef<Video>();
-  const chapterRef = useRef<Video>();
-  const bibleRef = useRef<Video>();
+  const verseRef = useRef<VideoRef>(null);
+  const chapterRef = useRef<VideoRef>(null);
+  const bibleRef = useRef<VideoRef>(null);
   const date = moment().date();
   const month = moment().month() + 1;
   const verse = strings[month][date];
@@ -196,7 +196,7 @@ const Home: FunctionComponent = () => {
     setBibleLoading(false);
   };
 
-  const onError = (e: LoadError) => {
+  const onError = (e: OnVideoErrorData) => {
     setVersePaused(true);
     setBiblePaused(true);
     setChapterPaused(true);
@@ -459,7 +459,7 @@ const Home: FunctionComponent = () => {
             setVersePaused(false);
           }}
         >
-          <Icon name="keyboard-return" size={30} />
+          <Icon name="keyboard-return" color="#ffff" size={30} />
         </Button>
       </Modal>
     </>
